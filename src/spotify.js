@@ -13,15 +13,13 @@ const scopes = [
 export const getTokenFromUrl = () => {
   return window.location.hash
   .substring(1)
-  // Split by every ampersend in URL
   .split('&')
-  //
   .reduce((initial, item) => {
     let parts = item.split('=');
     initial[parts[0]] = decodeURIComponent(parts[1]);
-
-    return initial;
-  })
+    console.log('initial', initial);
+    return initial
+  }, {});
 }
 
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
