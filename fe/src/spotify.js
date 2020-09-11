@@ -1,5 +1,5 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize";
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://localhost:5000";
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
 // Privileges to Spotify API
@@ -10,7 +10,7 @@ const scopes = [
   "user-modify-playback-state"
 ];
 
-export const getTokenFromUrl = () => {
+export const getTokenFromResponse = () => {
   return window.location.hash
   .substring(1)
   .split('&')

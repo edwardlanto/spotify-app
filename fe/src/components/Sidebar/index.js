@@ -28,7 +28,8 @@ function Sidebar() {
       />
       <strong className="sidebar__title">Playlists</strong>
       <hr />
-      {playlists && playlists.map((playlist) => {
+      {console.log('playlists', playlists)}
+      {playlists?.items && playlists.items.map((playlist) => {
         console.log('playlistsssss', playlist);
           return(
             <SidebarOption title={playlist.name} />

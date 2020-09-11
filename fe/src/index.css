@@ -1,0 +1,13 @@
+*{
+  margin:0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+.app{
+  display:flex;
+  padding-left:20%;
+}
