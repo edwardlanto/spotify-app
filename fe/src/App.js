@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SpotifyWebApi from "spotify-web-api-js";
 import { useDataLayerValue } from "./contexts/DataLayer";
 import Player from "./components/Player";
 import "./index.css";
@@ -9,40 +8,31 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import SongList from "./views/SongList";
 import Footer from "./components/Footer";
+import axios from 'axios';
 import { getTokenFromResponse } from "./spotify";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { checkAuth } from "./util/helpers";
 
 function App() {
-  const [authToken, setAuthToken] = useState(null);
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    async function checkAuth(){
-      const authPromise = await axios.get('/auth');
-      console.log('authPromise', authPromise);
-    }
-
-    checkAuth();
-
-  }, []);
-
-  function tokenCallBack() {
-    const hash = getTokenFromResponse();
-    localStorage.setItem("code", hash["code"]);
-    axios.get("/callback", {
-      params: {
-        code: hash,
-      },
+    axios.get("/").then(() => {
+ 
     });
-  }
+  }, []);
 
   return (
     <div class="app">
-      <Login />
-      <Header />
-      <Sidebar />
-        <Player />
-      <Footer />
+      {!authorized ? (
+        <Login />
+      ) : (
+        <>
+          <Header />
+          <Sidebar />
+          <Player />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
