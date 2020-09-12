@@ -16,9 +16,10 @@ export const getTokenFromResponse = () => {
   let params = (new URL(url)).searchParams;
   obj['code'] = params.get('code')
   obj['state'] = params.get('state')
-  return obj;
 }
 
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   "%20"
 )}&response_type=token&show_dialog=true`;
+
+

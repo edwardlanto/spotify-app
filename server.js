@@ -3,12 +3,13 @@
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
 var querystring = require("querystring");
-var cookieParser = require("cookie-parser");
-const fetch = require("node-fetch");
 var cors = require("cors");
 var morgan = require("morgan");
 var redirect_uri = 'http://localhost:8888/callback';
 const axios = require('axios');
+const _SpotifyWebApi = require('spotify-web-api-node');
+const SpotifyWebApi = new _SpotifyWebApi();
+var cookieParser = require('cookie-parser'); 
 require("dotenv").config();
 
 // Privileges to Spotify API
@@ -20,12 +21,7 @@ var scopes = [
   "user-modify-playback-state",
 ];
 
-
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
+// Generates a state params to pass to spotify API
 var generateRandomString = function (length) {
   var text = "";
   var possible =
@@ -43,8 +39,8 @@ var app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(express.static(__dirname + "/fe/public")).use(cookieParser());
-
+app.use(express.static(__dirname + "/fe/public"));
+app.use(cookieParser()) 
 app.get("/login", function (req, res) {
   try {
     var state = generateRandomString(64);
@@ -65,13 +61,9 @@ app.get("/login", function (req, res) {
   }
 });
 
+// This access token is to make http requests.
 async function getAccessToken({ code }) {
-
-  const buff = Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET.toString("base64"))
-  const jsonReq = JSON.stringify();
-  console.log("2222JSON REQ", jsonReq);
-
-  const token =  axios({
+  const token =  await axios({
     url: 'https://accounts.spotify.com/api/token',
     method: 'post',
     params: {
@@ -88,21 +80,36 @@ async function getAccessToken({ code }) {
       password: process.env.CLIENT_SECRET
     }
   }).then(function(response) {
-      console.log(response);
+      return response;
   }).catch(function(error) {
     console.log("ERR", error)
   });
-  return token;
+  
+  // Passing only refresh and access tokens to route
+  const dataObj = {}
+  const data =  token;
+  dataObj.access_token = data.data.access_token;
+  dataObj.refresh_token = data.data.refresh_token;
+  return dataObj;
+
 }
 
 app.get("/callback", async (req, res) => {
   try {
     const code = req.query.code;
-    const state = req.query.state;
-    var storedState = req.cookies ? req.cookies[stateKey] : null;
-    const access_token = await getAccessToken({ code });
+    const data = await getAccessToken({ code });
+    console.log('ACCCESS', data.access_token);
+    if(data.access_token){
+      SpotifyWebApi.setAccessToken(data.access_token);
+      res.cookie('access_token', data.access_token, { maxAge: 900000 });
+      res.status(200)
+      // Get the authenticated user
+      const user = await SpotifyWebApi.getMe();
+      console.log('USER1', user);
+     
+      console.log("ACCESS TOKEN", data.access_token);
+    }
 
-    console.log("access_token", access_token);
   } catch (err) {
     console.log('err', err);
   }
@@ -131,16 +138,9 @@ app.get("/refresh_token", function (req, res) {
   });
 });
 
-app.post("/post_token", (req, res) => {
-  authorizationCode = req.body.token;
-  res.redirect("http://localhost:3000/");
-});
-
 // Setting Routes
-app.get("/*", (req, res, next) => {
-  if (authorizationCode === "") {
-    res.redirect("http://localhost:3000/login");
-  }
+app.get("/auth", (req, res, next) => {
+  res.send('success');
 });
 
 console.log("Listening on 8888");
