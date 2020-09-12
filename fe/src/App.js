@@ -8,32 +8,46 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import SongList from "./views/SongList";
 import Footer from "./components/Footer";
-import axios from 'axios';
-import { getTokenFromResponse } from "./spotify";
-import { checkAuth } from "./util/helpers";
+import axios from "axios";
+import { useCookies } from 'react-cookie';
+
 
 function App() {
-  const [authorized, setAuthorized] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['refresh_token', 'access_token']);
+  const [authorized, setAuthorized] = useState(null);
 
   useEffect(() => {
-    axios.get("/").then(() => {
- 
-    });
+    const checkAuth = async () => {
+      if (!cookies.access_token) {
+        setAuthorized(false);
+      } else {
+        let checkAuthPromise = await axios.post("/refresh_token", {
+          refresh_token: cookies.refresh_token
+        });
+
+        console.log('check auth promise', checkAuthPromise)
+      }
+    };
+    checkAuth();
   }, []);
 
   return (
-    <div class="app">
-      {!authorized ? (
+    <>
+      {authorized === false ? (
         <Login />
       ) : (
-        <>
-          <Header />
-          <Sidebar />
-          <Player />
-          <Footer />
-        </>
+        <div class="app">
+          <>
+          cooke {cookies.refresh_token}
+            <Header />
+            <Sidebar />
+            <Player />
+            {}
+            <Footer />
+          </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
