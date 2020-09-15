@@ -36,10 +36,9 @@ function App() {
           console.log('user current', user.data);
           setUser(user?.data?.user);
           setPlaylists(user?.data?.playlists);
-
           dispatch({
             type:"SET_CURRENT_PLAYLIST",
-            current_playlist: user?.data.newReleases
+            current_playlist: user.data.current_playlist
           });
 
         }

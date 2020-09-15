@@ -10,44 +10,6 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 function Body({ spotify }) {
   const [{ current_playlist }, dispatch] = useDataLayerValue();
   console.log("current play", current_playlist);
-  // const playPlaylist = (id) => {
-  //   spotify
-  //     .play({
-  //       context_uri: `spotify:playlist:37i9dQZEVXcJZyENOWUFo7`,
-  //     })
-  //     .then((res) => {
-  //       spotify.getMyCurrentPlayingTrack().then((r) => {
-  //         dispatch({
-  //           type: "SET_ITEM",
-  //           item: r.item,
-  //         });
-  //         dispatch({
-  //           type: "SET_PLAYING",
-  //           playing: true,
-  //         });
-  //       });
-  //     });
-  // };
-  
-
-  const playSong = (id) => {
-    // spotify
-    //   .play({
-    //     uris: [`spotify:track:${id}`],
-    //   })
-    //   .then((res) => {
-    //     spotify.getMyCurrentPlayingTrack().then((r) => {
-    //       dispatch({
-    //         type: "SET_ITEM",
-    //         item: r.item,
-    //       });
-    //       dispatch({
-    //         type: "SET_PLAYING",
-    //         playing: true,
-    //       });
-    //     });
-    //   });
-  };
 
   return (
     <div className="body">

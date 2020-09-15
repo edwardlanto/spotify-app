@@ -61,7 +61,7 @@ export const reducer = (state, action) => {
       case "SET_CURRENT_PLAYLIST":
         return {
           ...state,
-          current_playlist: action.playlists,
+          current_playlist: action.current_playlist,
         };
 
     default:
