@@ -4,8 +4,8 @@ const redirect_uri = "http://localhost:8888/callback";
 const axios = require("axios");
 const _SpotifyWebApi = require("spotify-web-api-node");
 const SpotifyWebApi = new _SpotifyWebApi();
-const generateRandomString = require('../utils/index');
-let state = generateRandomString(64)
+const generateRandomString = require("../utils/index");
+let state = generateRandomString(64);
 let stateKey = "spotify_auth_state";
 const scopes = [
   "user-read-currently-playing",
@@ -64,7 +64,7 @@ router.route("/login").get((req, res) => {
         })
     );
   } catch (err) {
-    res.status(500).send(err)
+    res.status(500).send(err);
   }
 });
 
@@ -85,15 +85,15 @@ router.route("/callback").get(async (req, res) => {
   }
 });
 
-router.route('/refresh_token').post(async (req, res) => {
-  try{
-    const refresh_token  = req.body.refresh_token;
+router.route("/refresh_token").post(async (req, res) => {
+  try {
+    const refresh_token = req.body.refresh_token;
     const token = await axios({
       url: "https://accounts.spotify.com/api/token",
       method: "post",
       params: {
         grant_type: "refresh_token",
-        refresh_token
+        refresh_token,
       },
       headers: {
         Accept: "application/json",
@@ -104,16 +104,15 @@ router.route('/refresh_token').post(async (req, res) => {
         password: process.env.CLIENT_SECRET,
       },
     });
-  
+
     res.cookie("access_token", token.data.access_token, { maxAge: 900000 });
     res.send({
-      access_token: token.data.access_token
-    })
-  }catch(err){
+      access_token: token.data.access_token,
+    });
+  } catch (err) {
+    console.log("err", err);
     res.status(500).send(err);
   }
+});
 
-})
-
-module.exports = SpotifyWebApi;
 module.exports = router;

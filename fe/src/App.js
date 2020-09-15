@@ -6,26 +6,43 @@ import Login from "./views/Login";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import SongList from "./views/SongList";
 import Footer from "./components/Footer";
 import axios from "axios";
-import { useCookies } from 'react-cookie';
-
+import { useCookies } from "react-cookie";
+import { audioPlay } from './utils';
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(['refresh_token', 'access_token']);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "refresh_token",
+    "access_token",
+  ]);
   const [authorized, setAuthorized] = useState(null);
+  const [user, setUser] = useState({});
+  const [playlists, setPlaylists] = useState([]);
+  const [{ currentPlaylist }, dispatch] = useDataLayerValue();
 
   useEffect(() => {
     const checkAuth = async () => {
-      if (!cookies.access_token) {
+      if (!cookies.access_token || !cookies.refresh_token) {
         setAuthorized(false);
       } else {
-        let checkAuthPromise = await axios.post("/refresh_token", {
-          refresh_token: cookies.refresh_token
+        axios.post("/refresh_token", {
+          refresh_token: cookies.refresh_token,
         });
+        
+        setAuthorized(true);
+        if(cookies.access_token){
+          const user = await axios.get('/spotify/me');
+          console.log('user current', user.data);
+          setUser(user?.data?.user);
+          setPlaylists(user?.data?.playlists);
 
-        console.log('check auth promise', checkAuthPromise)
+          dispatch({
+            type:"SET_CURRENT_PLAYLIST",
+            current_playlist: user?.data.newReleases
+          });
+
+        }
       }
     };
     checkAuth();
@@ -33,20 +50,20 @@ function App() {
 
   return (
     <>
-      {authorized === false ? (
-        <Login />
-      ) : (
-        <div class="app">
+        {authorized === false ? (
+          <Login />
+        ) : (
           <>
-          cooke {cookies.refresh_token}
-            <Header />
-            <Sidebar />
-            <Player />
-            {}
-            <Footer />
-          </>
-        </div>
-      )}
+     <div class="app">
+      <Header user={user} />
+      <Sidebar playlists={playlists} />
+      <Router>
+        <Player />
+        </Router>
+        <Footer />
+      </div>
+      </>
+        )}
     </>
   );
 }

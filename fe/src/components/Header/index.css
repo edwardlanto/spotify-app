@@ -1,7 +1,10 @@
 .header {
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  height: 70px;
+  padding-left: 20%;
 }
 
 .header__left {
