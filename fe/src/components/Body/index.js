@@ -1,29 +1,21 @@
 import React from "react";
 import "./index.css";
-import Header from "../Header";
 import { useDataLayerValue } from "../../contexts/DataLayer";
 import SongRow from "../SongRow";
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-function Body({ spotify }) {
+function Body() {
+  
   const [{ current_playlist }, dispatch] = useDataLayerValue();
-  console.log("current play", current_playlist);
-
   return (
     <div className="body">
-    {/*
-
     <div className="body__info">
-      <img src={discover_weekly?.images[0].url} alt="" />
       <div className="body__infoText">
         <strong>PLAYLIST</strong>
-        <h2>Discover Weekly</h2>
-        <p>{discover_weekly?.description}</p>
+        <h2>{current_playlist?.name}</h2>
       </div>
     </div>
-*/}
     <div className="body__songs">
       <div className="body__icons">
         {/* <PlayCircleFilledIcon
@@ -33,7 +25,9 @@ function Body({ spotify }) {
         <FavoriteIcon fontSize="large" />
         <MoreHorizIcon />
       </div>
-
+      {current_playlist?.tracks?.items.map(item => (
+        <SongRow track={item.track} playSong />
+      ))}
     </div> 
   </div>
   );

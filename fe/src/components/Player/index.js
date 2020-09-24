@@ -7,7 +7,7 @@ function Player(){
     return (
         <div className="player">
             <div className="player__body">
-               <Body />
+
                <Footer />
             </div>
         </div>

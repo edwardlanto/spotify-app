@@ -4,7 +4,6 @@ import SidebarOption from "../SidebarOption.js";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-import { useDataLayerValue } from "../../contexts/DataLayer";
 
 function Sidebar({playlists}) {
   return (
@@ -29,7 +28,6 @@ function Sidebar({playlists}) {
       <hr />
       {console.log('playlists', playlists)}
       {playlists?.items && playlists.items.map((playlist) => {
-        console.log('playlistsssss', playlist);
           return(
             <SidebarOption title={playlist.name} />
           );
