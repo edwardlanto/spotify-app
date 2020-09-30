@@ -6,7 +6,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const DEBUG = process.env.NODE_ENV === "development";
-const axios = require('axios');
 
 require("dotenv").config();
 
@@ -16,26 +15,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.static(__dirname + "/fe/public"));
 
-// Interceptor
-
-// // Add a request interceptor
-// axios.interceptors.request.use(
-//   (req) => { 
-//     try {
-
-//     } catch (err) {
-//     //   res.status(500).send(err);
-//     }
-//     return req;
-//   },
-//   (error) => {
-//     // Do something with request error
-//     return Promise.reject(error);
-//   }
-// );
-
 // Routes
-
 const authRouter = require("./routes/authRoutes");
 const spotifyRouter = require("./routes/spotifyRoutes");
 

@@ -5,6 +5,7 @@
     align-items: center;
     z-index: 100;
     color: white;
+    border-bottom:2px solid #fff;
   }
   
   .songRow:hover {

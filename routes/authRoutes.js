@@ -11,8 +11,7 @@ const scopes = [
   "user-read-currently-playing",
   "user-read-recently-played",
   "user-read-playback-state",
-  "user-modify-playback-state",
-  "user-modify-playback-state",
+  "user-modify-playback-state"
 ];
 
 // This access token is to make http requests.

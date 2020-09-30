@@ -4,16 +4,16 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { DataLayer } from "./contexts/DataLayer";
-import { initialState, reducer } from "./reducer";
+import { StateProvider } from './store.js';
 import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataLayer initialState={initialState} reducer={reducer}>
+    <StateProvider>
       <CookiesProvider>
         <App />
       </CookiesProvider>
-    </DataLayer>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

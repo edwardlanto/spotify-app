@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDataLayerValue } from "./contexts/DataLayer";
+import React, { useEffect, useState, useContext } from "react";
 import Body from "./components/Body";
 import "./index.css";
 import Login from "./views/Login";
@@ -9,7 +8,9 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { audioPlay } from "./utils";
+import { store } from "./store";
+import Spotify from 'spotify-web-api-js';
+let spotify = new Spotify();
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -18,8 +19,10 @@ function App() {
   ]);
   const [authorized, setAuthorized] = useState(null);
   const [user, setUser] = useState({});
+  const [currentlyPlaying, setCurrentlyPlaying ] = useState({});
   const [playlists, setPlaylists] = useState([]);
-  const [{ current_playlist }, dispatch] = useDataLayerValue();
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -31,13 +34,20 @@ function App() {
         });
         setAuthorized(true);
         if (cookies.access_token) {
+          spotify.setAccessToken(cookies.access_token);
           const initialData = await axios.get("/spotify/me");
-          console.log("user current", initialData);
           setUser(initialData?.data?.user);
           setPlaylists(initialData?.data?.playlists);
+          setCurrentlyPlaying(initialData?.data.current_playing)
+          console.log('Current DAT', initialData?.data.current_playing)
           dispatch({
             type: "SET_CURRENT_PLAYLIST",
-            current_playlist: initialData?.data.current_playlist,
+            discover_weekly: initialData?.data.discover_weekly,
+          });
+
+          dispatch({
+            type: "SET_SPOTIFY",
+            spotify
           });
         }
       }
@@ -55,8 +65,8 @@ function App() {
             <Header user={user} />
             <Sidebar playlists={playlists} />
             <div className="padding-block"></div>
-            <Body current_playlist={current_playlist} />
-            <Footer />
+            <Body />
+            <Footer currently_playing={currentlyPlaying} />
           </div>
         </>
       )}

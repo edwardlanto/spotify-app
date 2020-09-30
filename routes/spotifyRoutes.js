@@ -5,9 +5,7 @@ router.route("/*").get(async (req, res, next) => {
   try {
     console.log("Intercepted");
     const host = req.headers;
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${req.cookies.access_token}`;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${req.cookies.access_token}`;
     next();
   } catch (err) {
     console.log("err in interceptor", err);
@@ -23,11 +21,11 @@ router.route("/me").get(async (req, res) => {
     const promise4 = await axios.get("https://api.spotify.com/v1/me/player/currently-playing");
 
     let startData = await Promise.all([promise1, promise2, promise3, promise4]);
-    console.log("START DATA",startData[0].data);
     res.status(200).send({
         user: startData[0].data,
         playlists: startData[1].data,
-        current_playlist: startData[2].data
+        discover_weekly: startData[2].data,
+        current_playing: startData[3].data
     });
   } catch (err) {
     console.log("err", err);

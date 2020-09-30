@@ -1,88 +1,98 @@
-import React, { useEffect, useState } from "react";
-import { useDataLayerValue } from "../../contexts/DataLayer";
+import React, { useEffect, useContext, useState } from "react";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
-import ShuffleIcon from "@material-ui/icons/Shuffle";
-import RepeatIcon from "@material-ui/icons/Repeat";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import { store } from "../../store.js";
 import "./index.css";
-import { Grid, Slider } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import { Grid } from "@material-ui/core";
+import PauseIcon from "@material-ui/icons/Pause";
 
-function Footer({ spotify }) {
+function Footer({ currently_playing }) {
+  const globalState = useContext(store);
+  const [isPlaying, setIsPlaying] = useState(() => false);
+  console.log("currently_playing", globalState );
+  const handlePlayPause = () => {};
 
-  useEffect(() => {
-
-  }, []);
-
-  const handlePlayPause = () => {
-
-  };
-
-  const skipNext = () => {
-
-  };
+  const skipNext = () => {};
 
   const skipPrevious = () => {
+    alert("prev");
+  };
 
+  useEffect(() => {
+    setIsPlaying(currently_playing.is_playing);
+  }, [] )
+
+  const playPause = () => {
+    alert(isPlaying)
+
+    if(isPlaying == true){
+      setIsPlaying(false);
+      globalState.state.spotify.pause();
+    }else if(isPlaying == false){
+      setIsPlaying(true);
+      globalState.state.spotify.play({
+        uris: [`${currently_playing?.item.uri}`]
+      });
+    }else{
+      return;
+    }
   };
 
   return (
-    <div className="footer">
-      {/* <div className="footer__left">
+    <Grid container spacing={1} className="footer">
+      <Grid container direction="row" alignItems="center" xs={12} md={3}>
         <img
-          className="footer__albumLogo"
-          src={item?.album.images[0].url}
-          alt={item?.name}
+          className="footer__album"
+          src={currently_playing?.item?.album?.images[0].url}
+          alt=""
         />
-        {item ? (
-          <div className="footer__songInfo">
-            <h4>{item.name}</h4>
-            <p>{item.artists.map((artist) => artist.name).join(", ")}</p>
+        <div
+          className="songRow__info"
+          direction="row"
+          container
+          alignItems="center"
+        >
+          <h6>{currently_playing?.item?.name}</h6>
+          <div>
+            <p>
+              {currently_playing?.item?.artists
+                .map((artist) => artist?.name)
+                .join(", ")}{" "}
+              -{" "}
+            </p>
           </div>
+        </div>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        xs={12}
+        md={6}
+        justify="center"
+      >
+        <IconButton aria-label="previous" onClick={skipPrevious}>
+          <SkipPreviousIcon />
+        </IconButton>
+        {isPlaying  ? (
+          <IconButton aria-label="pause" onClick={playPause}>
+            <PauseIcon />
+          </IconButton>
         ) : (
-          <div className="footer__songInfo">
-            <h4>No song is playing</h4>
-            <p>...</p>
-          </div>
+          <IconButton aria-label="play" onClick={playPause}>
+            <PlayCircleOutlineIcon />
+          </IconButton>
         )}
-      </div>
-
-      <div className="footer__center">
-        <ShuffleIcon className="footer__green" />
-        <SkipPreviousIcon onClick={skipNext} className="footer__icon" />
-        {playing ? (
-          <PauseCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer__icon"
-          />
-        ) : (
-          <PlayCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer__icon"
-          />
-        )}
-        <SkipNextIcon onClick={skipPrevious} className="footer__icon" />
-        <RepeatIcon className="footer__green" />
-      </div>
-      <div className="footer__right">
-        <Grid container spacing={2}>
-          <Grid item>
-            <PlaylistPlayIcon />
-          </Grid>
-          <Grid item>
-            <VolumeDownIcon />
-          </Grid>
-          <Grid item xs>
-            <Slider aria-labelledby="continuous-slider" />
-          </Grid>
-        </Grid>
-      </div> */}
-    </div>
+        <IconButton aria-label="next" onClick={skipNext}>
+          <SkipNextIcon />
+        </IconButton>
+      </Grid>
+    </Grid>
   );
 }
 
