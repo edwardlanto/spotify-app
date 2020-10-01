@@ -25,7 +25,7 @@ function Body() {
     <div className="body__info">
       <div className="body__infoText">
         <strong>PLAYLIST</strong>
-        <h2>{globalState.state.discover_weekly?.name}</h2>
+        <h2>{globalState.state.current_playlist?.name}</h2>
       </div>
     </div>
     <div className="body__songs">
@@ -47,7 +47,7 @@ function Body() {
           Time
         </Grid>
       </Grid>
-      {globalState.state.discover_weekly?.tracks?.items.map((item, i )=> (
+      {globalState.state.current_playlist?.tracks?.items.map((item, i )=> (
         <SongRow track={item.track} playSong key={i} />
       ))}
     </div> 

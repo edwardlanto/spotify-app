@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from "react";
 
 const initialState = {
   current_playlist: [],
-  currenly_playing: {},
+  currently_playing: {},
   spotify: null,
 };
 const store = createContext(initialState);
@@ -16,7 +16,7 @@ const StateProvider = ({ children }) => {
       case "SET_CURRENT_PLAYLIST":
         return {
           ...state,
-          discover_weekly: action.discover_weekly,
+          current_playlist: action.current_playlist,
         };
       case "SET_CURRENTLY_PLAYING":
         return {

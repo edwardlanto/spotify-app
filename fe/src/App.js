@@ -13,18 +13,19 @@ import Spotify from 'spotify-web-api-js';
 let spotify = new Spotify();
 
 function App() {
+  const globalState = useContext(store);
   const [cookies, setCookie, removeCookie] = useCookies([
     "refresh_token",
     "access_token",
   ]);
   const [authorized, setAuthorized] = useState(null);
   const [user, setUser] = useState({});
-  const [currentlyPlaying, setCurrentlyPlaying ] = useState({});
   const [playlists, setPlaylists] = useState([]);
-  const globalState = useContext(store);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(() => globalState.state.currently_playing);
   const { dispatch } = globalState;
 
   useEffect(() => {
+
     const checkAuth = async () => {
       if (!cookies.access_token || !cookies.refresh_token) {
         setAuthorized(false);
@@ -40,11 +41,10 @@ function App() {
           const initialData = await axios.get("/spotify/me");
           setUser(initialData?.data?.user);
           setPlaylists(initialData?.data?.playlists);
-          setCurrentlyPlaying(initialData?.data.current_playing)
-          console.log('Current DAT', initialData?.data.current_playing)
+
           dispatch({
             type: "SET_CURRENT_PLAYLIST",
-            discover_weekly: initialData?.data.discover_weekly,
+            current_playlist: initialData?.data.current_playlist,
           });
 
           dispatch({
@@ -68,7 +68,7 @@ function App() {
             <Sidebar playlists={playlists} />
             <div className="padding-block"></div>
             <Body />
-            <Footer currently_playing={currentlyPlaying} />
+            {/* <Footer /> */}
           </div>
         </>
       )}

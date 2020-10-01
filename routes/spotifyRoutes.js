@@ -18,16 +18,12 @@ router.route("/me").get(async (req, res) => {
     const promise1 = await axios.get("https://api.spotify.com/v1/me");
     const promise2 = await axios.get("https://api.spotify.com/v1/me/playlists");
     const promise3 = await axios.get("https://api.spotify.com/v1/playlists/37i9dQZEVXcIrIaekNWlE1");
-    const promise4 = await axios.get("https://api.spotify.com/v1/me/player/currently-playing");
-    const promise5 = await axios.get("https://api.spotify.com/v1/me/player/devices");
 
-    let startData = await Promise.all([promise1, promise2, promise3, promise4, promise5]);
-    console.log("START DATA", startData[4].data)
+    let startData = await Promise.all([promise1, promise2, promise3]);
     res.status(200).send({
         user: startData[0].data,
         playlists: startData[1].data,
-        discover_weekly: startData[2].data,
-        current_playing: startData[3].data
+        current_playlist: startData[2].data
     });
   } catch (err) {
     console.log("err", err);

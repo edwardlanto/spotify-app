@@ -5,16 +5,15 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { store } from '../../store.js';
 import axios from 'axios';
-import Spotify from 'spotify-web-api-js';
-let spotify = new Spotify();
+import spotify from '../../utils/spotifySingleton';
 
 function SongRow({ track }) {
   console.log('main track', track);
   const globalState = useContext(store);
+  const { dispatch } = globalState;
+  
   const play = () => {
-    spotify.play({
-        uris: ["spotify:track:6AKZZxIfVtE7y3a4ToCWxE"]
-    })
+    spotify.play(track.preview_url);
   }
 
   const millisToMinutesAndSeconds = (millis) => {
