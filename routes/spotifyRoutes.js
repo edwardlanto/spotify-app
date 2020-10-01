@@ -31,4 +31,16 @@ router.route("/me").get(async (req, res) => {
   }
 });
 
+router.route("/get_playlist").get(async (req, res) => {
+  try {
+    const id = req.query.id;
+    const data = await axios.get(`https://api.spotify.com/v1/playlists/${id}`);
+    console.log('TRACKS', data.data);
+    res.status(200).send(data.data);
+  } catch (err) {
+    console.log("err", err);
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;

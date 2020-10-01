@@ -15,3 +15,10 @@
     padding-left:10px;
     padding-right:10px;
 }
+
+.sidebarOption button{
+    border:none;
+    background:transparent;
+    box-shadow:none;
+    color:#fff;
+}

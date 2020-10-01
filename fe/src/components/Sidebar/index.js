@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import SidebarOption from "../SidebarOption.js";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import axios from 'axios';
+import { store } from "../../store.js";
 
 function Sidebar({playlists}) {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+  const getPlaylist = async (id) => {
+    const data = await axios.get("/spotify/get_playlist", {
+      params:{
+        id
+      }
+    });
+
+    dispatch({
+      type: "SET_CURRENT_PLAYLIST",
+      current_playlist: data.data
+    })
+
+    console.log('data', data);
+  }
+
   return (
     <div className="sidebar">
       <img
@@ -27,8 +46,9 @@ function Sidebar({playlists}) {
       <strong className="sidebar__title">Playlists</strong>
       <hr />
       {playlists?.items && playlists.items.map((playlist) => {
+        console.log("PLAYLIST", playlist)
           return(
-            <SidebarOption title={playlist.name} key={playlist.name} />
+            <SidebarOption title={playlist.name} key={playlist.name} getPlaylist={getPlaylist} id={playlist.id}/>
           );
       })}
     </div>
