@@ -19,8 +19,10 @@ router.route("/me").get(async (req, res) => {
     const promise2 = await axios.get("https://api.spotify.com/v1/me/playlists");
     const promise3 = await axios.get("https://api.spotify.com/v1/playlists/37i9dQZEVXcIrIaekNWlE1");
     const promise4 = await axios.get("https://api.spotify.com/v1/me/player/currently-playing");
+    const promise5 = await axios.get("https://api.spotify.com/v1/me/player/devices");
 
-    let startData = await Promise.all([promise1, promise2, promise3, promise4]);
+    let startData = await Promise.all([promise1, promise2, promise3, promise4, promise5]);
+    console.log("START DATA", startData[4].data)
     res.status(200).send({
         user: startData[0].data,
         playlists: startData[1].data,

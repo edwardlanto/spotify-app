@@ -5,13 +5,15 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { store } from '../../store.js';
 import axios from 'axios';
+import Spotify from 'spotify-web-api-js';
+let spotify = new Spotify();
 
-function SongRow({ track, playSong }) {
+function SongRow({ track }) {
+  console.log('main track', track);
   const globalState = useContext(store);
-  console.log('track', track);
-  const play = (uri) => {
-    globalState.state.spotify.play({
-        uris: [`${uri}`]
+  const play = () => {
+    spotify.play({
+        uris: ["spotify:track:6AKZZxIfVtE7y3a4ToCWxE"]
     })
   }
 
@@ -23,7 +25,7 @@ function SongRow({ track, playSong }) {
 
   return (
     <Grid container spacing={1} className="songRow" alignItems="center" direction="row">
-      <Grid item xs={4} direction="row" alignItems="center">
+      <Grid item xs={4}>
         <IconButton onClick={() => play(track.uri)}>
           <PlayArrowIcon />
         </IconButton>

@@ -10,6 +10,8 @@ import "./index.css";
 import IconButton from "@material-ui/core/IconButton";
 import { Grid } from "@material-ui/core";
 import PauseIcon from "@material-ui/icons/Pause";
+import Spotify from 'spotify-web-api-js';
+let spotify = new Spotify();
 
 function Footer({ currently_playing }) {
   const globalState = useContext(store);
@@ -45,7 +47,7 @@ function Footer({ currently_playing }) {
 
   return (
     <Grid container spacing={1} className="footer">
-      <Grid container direction="row" alignItems="center" xs={12} md={3}>
+      <Grid item xs={12} md={3}>
         <img
           className="footer__album"
           src={currently_playing?.item?.album?.images[0].url}
@@ -69,12 +71,9 @@ function Footer({ currently_playing }) {
         </div>
       </Grid>
       <Grid
-        container
-        direction="row"
-        alignItems="center"
+        item
         xs={12}
         md={6}
-        justify="center"
       >
         <IconButton aria-label="previous" onClick={skipPrevious}>
           <SkipPreviousIcon />

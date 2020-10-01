@@ -35,6 +35,8 @@ function App() {
         setAuthorized(true);
         if (cookies.access_token) {
           spotify.setAccessToken(cookies.access_token);
+          const device_id = spotify.getMyDevices().then(res => res);
+          console.log('token', device_id);
           const initialData = await axios.get("/spotify/me");
           setUser(initialData?.data?.user);
           setPlaylists(initialData?.data?.playlists);
