@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
     "dev": "concurrently \"nodemon server\" \"cd fe && npm start\""
   },
   "author": "",
