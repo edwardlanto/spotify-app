@@ -14,15 +14,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-if (DEBUG) {
-  app.use(express.static(__dirname + "/fe/public"));
-} else {
-  app.use(express.static(path.join(__dirname, "/fe/build")));
+app.use(express.static(__dirname + "/fe/public"));
 
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/fe/build", "index.html"));
-  });
-}
 
 // Routes
 const authRouter = require("./routes/authRoutes");
@@ -32,7 +25,7 @@ app.use("/", [authRouter]);
 app.use("/spotify", spotifyRouter);
 
 console.log("Listening on 8888");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8888
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
