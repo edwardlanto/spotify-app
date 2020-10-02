@@ -16,12 +16,25 @@ import spotify from "../../utils/spotifySingleton";
 function Footer() {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-  const [isPlaying, setIsPlaying] = useState(() => false);
-  const [value, setValue] = React.useState(0);
   console.log("spotify", spotify);
-  const handlePlayPause = () => {};
 
-  const skipNext = () => {};
+  const skipNext = () => {
+    if(globalState.state.index === null){
+      playFirstSong();
+    }else{
+      
+      spotify.play(globalState.state.current_playlist.tracks.items[globalState.state.index + 1].track);
+      dispatch({
+        type: "SET_CURRENTLY_PLAYING",
+        currently_playing: globalState.state.current_playlist.tracks.items[globalState.state.index + 1].track
+      });
+      dispatch({
+        type: "SET_CURRENT_INDEX",
+        index: globalState.state.index + 1
+      });
+    }
+
+  };
 
   const skipPrevious = () => {
     alert("prev");
@@ -79,15 +92,15 @@ function Footer() {
       type: "SET_CURRENTLY_PLAYING",
       currently_playing: firstSong,
     });
+
+    // If first song is chosen, set index to 0 and set to keep track for prev & next functions.
+    dispatch({
+      type: "SET_CURRENT_INDEX",
+      index: 0
+    });
+
   };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const valuetext = (value) => {
-    return `${value}°C`;
-  };
 
   return (
     <div className="footer">
