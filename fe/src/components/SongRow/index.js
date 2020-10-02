@@ -93,13 +93,13 @@ function SongRow({ track, index }) {
           </div>
         </Grid>
       </Grid>
-      <Grid item xs={3} direction="row" alignItems="center">
+      <Grid item xs={3}>
         {track.album.name}
       </Grid>
-      <Grid item xs={3} direction="row" alignItems="center">
+      <Grid item xs={3}>
         {track.album.release_date}
       </Grid>
-      <Grid item xs={2} direction="row" alignItems="center">
+      <Grid item xs={2}>
         {millisToMinutesAndSeconds(track.duration_ms)}
       </Grid>
     </Grid>

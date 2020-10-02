@@ -6,6 +6,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { store } from '../../store.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Sidebar from '../Sidebar';
 
 function Body() {
   const globalState = useContext(store);

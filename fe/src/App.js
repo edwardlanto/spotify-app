@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import Search from "./views/Search"
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { store } from "./store";
@@ -55,21 +56,25 @@ function App() {
   }, []);
 
   return (
+    <Router>
     <>
       {authorized === false ? (
         <Login />
       ) : (
-        <>
+        <>  
           <div className="app">
             <Header user={user} />
             <Sidebar playlists={playlists} />
-            <div className="padding-block"></div>
-            <Body />
+            <Switch>
+              <Route path="/" exact component={Body} />
+              <Route path="/search" exact component={Search} />
+              </Switch>
             <Footer />
           </div>
         </>
       )}
     </>
+    </Router>
   );
 }
 

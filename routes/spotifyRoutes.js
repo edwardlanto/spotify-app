@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const axios = require("axios");
 
+// Intercept every route call
 router.route("/*").get(async (req, res, next) => {
   try {
     console.log("Intercepted");
@@ -37,6 +38,16 @@ router.route("/get_playlist").get(async (req, res) => {
     const data = await axios.get(`https://api.spotify.com/v1/playlists/${id}`);
     console.log('TRACKS', data.data);
     res.status(200).send(data.data);
+  } catch (err) {
+    console.log("err", err);
+    res.status(500).send(err);
+  }
+});
+
+router.route("/search").get((req, res) => {
+  try {
+    console.log("RAN")
+    res.send("WORKED")
   } catch (err) {
     console.log("err", err);
     res.status(500).send(err);
