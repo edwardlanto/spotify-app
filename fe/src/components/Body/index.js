@@ -48,7 +48,7 @@ function Body() {
         </Grid>
       </Grid>
       {globalState.state.current_playlist?.tracks?.items.map((item, i )=> (
-        <SongRow track={item.track} playSong key={i} />
+        <SongRow track={item.track} playSong key={i} index={i}/>
       ))}
     </div> 
   </div>

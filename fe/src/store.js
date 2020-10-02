@@ -3,9 +3,10 @@ import React, { createContext, useReducer } from "react";
 
 const initialState = {
   current_playlist: [],
-  currently_playing: {},
+  currently_playing: null,
   spotify: null,
-  is_playing: false
+  is_playing: false,
+  index: null
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -33,6 +34,11 @@ const StateProvider = ({ children }) => {
             ...state,
             is_playing: action.is_playing,
           };
+          case "SET_CURRENT_INDEX":
+            return {
+              ...state,
+              index: action.index
+            };
       default:
         return state;
     }

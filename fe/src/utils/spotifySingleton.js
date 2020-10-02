@@ -9,6 +9,7 @@ class SpotifyInstance {
   }
 
   play(track) {
+    console.log("PLAYED", track);
     this.audio.src = track.preview_url;
     this.audio.play();
     this.audio["is_playing"] = true;

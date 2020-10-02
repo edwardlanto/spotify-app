@@ -60,12 +60,12 @@ function App() {
         <Login />
       ) : (
         <>
-          <div class="app">
+          <div className="app">
             <Header user={user} />
             <Sidebar playlists={playlists} />
             <div className="padding-block"></div>
             <Body />
-            {/* <Footer /> */}
+            <Footer />
           </div>
         </>
       )}
