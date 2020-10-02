@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { store } from "../../store.js";
-import axios from "axios";
 import PauseIcon from "@material-ui/icons/Pause";
 import spotify from "../../utils/spotifySingleton";
 
