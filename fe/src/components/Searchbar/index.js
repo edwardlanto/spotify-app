@@ -10,15 +10,10 @@ function Searchbar() {
   const [input, setInput] = useState(() => "");
   const [submitted, setSubmitted] = useState(() => false);
 
-  const searchSpotify = async (e) => {
+  async function searchSpotify(e){
     e.preventDefault();
-    setInput(e.target.value);
-    const data = await axios
-      .get("/spotify/search", {
-        params: {
-          q: input,
-        },
-      })
+      const data = await axios
+      .get(`/spotify/search?q=${input}`)
     console.log("DATA", data);
   };
 
