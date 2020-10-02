@@ -80,16 +80,18 @@ function SongRow({ track, index }) {
       direction="row"
     >
       <Grid item xs={4}>
+      <Grid container direction="row">
         {playButton(track)}
         <img
           className="songRow__album"
           src={track.album.images[0].url}
           alt=""
         />
-        <div className="songRow__info">
-          <h1>{track.name}</h1>
-          <p>{track.artists.map((artist) => artist.name).join(", ")} - </p>
-        </div>
+          <div className="songRow__info">
+            <h1>{track.name}</h1>
+            <p>{track.artists.map((artist) => artist.name).join(", ")} - </p>
+          </div>
+        </Grid>
       </Grid>
       <Grid item xs={3} direction="row" alignItems="center">
         {track.album.name}

@@ -22,22 +22,42 @@ function Footer() {
     if(globalState.state.index === null){
       playFirstSong();
     }else{
-      
+
       spotify.play(globalState.state.current_playlist.tracks.items[globalState.state.index + 1].track);
+
       dispatch({
         type: "SET_CURRENTLY_PLAYING",
         currently_playing: globalState.state.current_playlist.tracks.items[globalState.state.index + 1].track
       });
+
       dispatch({
         type: "SET_CURRENT_INDEX",
         index: globalState.state.index + 1
       });
     }
-
   };
 
   const skipPrevious = () => {
-    alert("prev");
+    if(globalState.state.index === null || globalState.state.index === 0 ){
+      playFirstSong();
+    }else{
+      spotify.play(globalState.state.current_playlist.tracks.items[globalState.state.index - 1].track);
+
+      dispatch({
+        type: "SET_CURRENTLY_PLAYING",
+        currently_playing: globalState.state.current_playlist.tracks.items[globalState.state.index - 1].track
+      });
+      
+      dispatch({
+        type: "SET_CURRENT_INDEX",
+        index: globalState.state.index - 1
+      });
+    }
+    
+    dispatch({
+      type: "SET_IS_PLAYING",
+      is_playing: true
+    });
   };
 
   const playPause = () => {
@@ -106,6 +126,7 @@ function Footer() {
     <div className="footer">
       <Grid container spacing={1}>
         <Grid item xs={12} md={3}>
+          <Grid container direction="row" alignItems="center">
           <img
             className="footer__album"
             src={spotify.audio.currently_playing?.album?.images[0].url}
@@ -127,6 +148,7 @@ function Footer() {
               </p>
             </div>
           </div>
+          </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container direction="row" justify="center">

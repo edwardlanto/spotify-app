@@ -34,3 +34,7 @@
 .header__right > h4 {
   margin-left: 10px;
 }
+
+.header .MuiInputBase-input{
+  color:#fff;
+}
