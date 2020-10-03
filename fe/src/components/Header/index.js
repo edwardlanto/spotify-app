@@ -1,12 +1,8 @@
 import React from "react";
 import "./index.css";
-import useStateWithCallback from "use-state-with-callback";
-import { withRouter } from "react-router-dom";
 import Searchbar from '../../components/Searchbar';
 
 function Header({ user }) {
-
-
   return (
     <div className="header">
       <div className="header__left">

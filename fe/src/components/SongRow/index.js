@@ -46,7 +46,7 @@ function SongRow({ track, index }) {
   };
 
   const playButton = (trackParams) => {
-    if (globalState.state.is_playing === true && trackParams.preview_url === spotify.audio.src) {
+    if (globalState.state.is_playing === true && trackParams?.preview_url === spotify.audio.src) {
       return (
         <IconButton onClick={() => pause()}>
           <PauseIcon />
@@ -54,7 +54,7 @@ function SongRow({ track, index }) {
       );
     } else if (
       globalState.state.is_playing === false &&
-      trackParams.preview_url !== spotify.audio.src
+      trackParams?.preview_url !== spotify.audio.src
     ) {
       return (
         <IconButton onClick={() => play(trackParams)}>
@@ -83,23 +83,23 @@ function SongRow({ track, index }) {
         {playButton(track)}
         <img
           className="songRow__album"
-          src={track.album.images[0].url}
+          src={track?.album.images[0].url}
           alt=""
         />
           <div className="songRow__info">
-            <h1>{track.name}</h1>
-            <p>{track.artists.map((artist) => artist.name).join(", ")} - </p>
+            <h1>{track?.name}</h1>
+            <p>{track?.artists.map((artist) => artist.name).join(", ")} - </p>
           </div>
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        {track.album.name}
+        {track?.album.name}
       </Grid>
       <Grid item xs={3}>
-        {track.album.release_date}
+        {track?.album.release_date}
       </Grid>
       <Grid item xs={2}>
-        {millisToMinutesAndSeconds(track.duration_ms)}
+        {millisToMinutesAndSeconds(track?.duration_ms)}
       </Grid>
     </Grid>
   );

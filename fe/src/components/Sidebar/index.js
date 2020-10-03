@@ -6,6 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import axios from "axios";
 import { store } from "../../store.js";
+import { Link } from "react-router-dom";
 
 function Sidebar({ playlists }) {
   const globalState = useContext(store);
@@ -30,7 +31,7 @@ function Sidebar({ playlists }) {
         alt="logo"
         className="sidebar__logo"
       />
-      <SidebarOption title="Home" Icon={HomeIcon} className="sidebar__icon" />
+      <Link to="/"><SidebarOption title="Home" Icon={HomeIcon} className="sidebar__icon" /></Link>
       <SidebarOption
         title="Search"
         Icon={SearchIcon}

@@ -7,7 +7,7 @@ const initialState = {
   spotify: null,
   is_playing: false,
   index: null,
-  input: ''
+  search_data:[]
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -18,27 +18,33 @@ const StateProvider = ({ children }) => {
       case "SET_CURRENT_PLAYLIST":
         return {
           ...state,
-          current_playlist: action.current_playlist,
+          current_playlist: action.current_playlist
         };
       case "SET_CURRENTLY_PLAYING":
         return {
           ...state,
-          currently_playing: action.currently_playing,
+          currently_playing: action.currently_playing
         };
       case "SET_SPOTIFY":
         return {
           ...state,
-          spotify: action.spotify,
+          spotify: action.spotify
         };
       case "SET_IS_PLAYING":
         return {
           ...state,
-          is_playing: action.is_playing,
+          is_playing: action.is_playing
         };
       case "SET_CURRENT_INDEX":
         return {
           ...state,
-          index: action.index,
+          index: action.index
+        };
+
+      case "SET_SEARCH_DATA":
+        return {
+          ...state,
+          search_data: action.search_data
         };
       default:
         return state;

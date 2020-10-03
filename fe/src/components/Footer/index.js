@@ -134,9 +134,6 @@ function Footer() {
           />
           <div
             className="songRow__info"
-            direction="row"
-            container
-            alignItems="center"
           >
             <h6>{spotify.audio.currently_playing?.name}</h6>
             <div>

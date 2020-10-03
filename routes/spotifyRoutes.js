@@ -59,7 +59,17 @@ router.route("/search").get(async(req, res) => {
         type: "playlist,track",
       },
     })
-    res.status(200).send(data.data);
+
+    // Filter only ones with preview url
+    const tracks = data.data.tracks.items.filter(item => {
+      return item.preview_url !== null
+    });
+    
+    console.log('tracks', tracks);
+    res.status(200).send({
+      tracks
+    });
+
   } catch (err) {
     console.log("err", err);
     res.status(500).send(err.message);
