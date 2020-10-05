@@ -39,7 +39,6 @@ function App() {
           const initialData = await axios.get("/spotify/me");
           setUser(initialData?.data?.user);
           setPlaylists(initialData?.data?.playlists);
-          console.log("PLAYLIST", initialData?.data?.playlists);
           dispatch({
             type: "SET_CURRENT_PLAYLIST",
             current_playlist: initialData?.data.current_playlist,

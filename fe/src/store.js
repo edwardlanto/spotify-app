@@ -14,7 +14,6 @@ const { Provider } = store;
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
-    console.log('current_playlist', action.current_playlist)
     switch (action.type) {
       case "SET_CURRENT_PLAYLIST":
         return {

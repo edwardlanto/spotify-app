@@ -20,7 +20,6 @@ function Footer() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log("spotify", spotify);
 
   const skipNext = () => {
     if (globalState.state.index === null) {
@@ -116,7 +115,6 @@ function Footer() {
 
   // Plays first in playlist if no song is already available
   const playFirstSong = () => {
-    console.log("track", globalState.state.current_playlist);
     const firstSong = globalState.state.current_playlist.tracks.items[0].track;
     spotify.play(firstSong);
 
@@ -125,16 +123,16 @@ function Footer() {
       is_playing: true,
     });
 
-    dispatch({
-      type: "SET_CURRENTLY_PLAYING",
-      currently_playing: firstSong,
-    });
+    // dispatch({
+    //   type: "SET_CURRENTLY_PLAYING",
+    //   currently_playing: firstSong,
+    // });
 
-    // If first song is chosen, set index to 0 and set to keep track for prev & next functions.
-    dispatch({
-      type: "SET_CURRENT_INDEX",
-      index: 0,
-    });
+    // // If first song is chosen, set index to 0 and set to keep track for prev & next functions.
+    // dispatch({
+    //   type: "SET_CURRENT_INDEX",
+    //   index: 0,
+    // });
   };
 
   return (

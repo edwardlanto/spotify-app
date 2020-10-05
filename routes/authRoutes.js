@@ -33,11 +33,11 @@ async function getAccessToken({ code }) {
       password: process.env.CLIENT_SECRET,
     },
   })
-    .then(function (response) {
+    .then((response) => {
       return response;
     })
-    .catch(function (error) {
-      console.log("ERR", error);
+    .catch((err) => {
+      res.status(500).send(err.message);
     });
 
   // Passing only refresh and access tokens to route
@@ -80,7 +80,7 @@ router.route("/callback").get(async (req, res) => {
     }
     res.redirect("http://localhost:3000");
   } catch (err) {
-    console.log("err", err);
+    res.status(500).send(err.message);
   }
 });
 
@@ -109,7 +109,6 @@ router.route("/refresh_token").post(async (req, res) => {
       access_token: token.data.access_token,
     });
   } catch (err) {
-    console.log("err", err);
     res.status(500).send(err);
   }
 });

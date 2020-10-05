@@ -7,8 +7,6 @@ import "./index.css";
 
 function Search() {
   const globalState = useContext(store);
-
-  console.log("OPBJECT", globalState);
   return (
     <div className="searchPage">
       <div className="searchPage__infoText">
