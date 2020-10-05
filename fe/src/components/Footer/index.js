@@ -129,16 +129,16 @@ function Footer() {
           <Grid container direction="row" alignItems="center">
           <img
             className="footer__album"
-            src={spotify.audio.currently_playing?.album?.images[0].url}
+            src={globalState.state.currently_playing?.album?.images[0].url}
             alt=""
           />
           <div
             className="songRow__info"
           >
-            <h6>{spotify.audio.currently_playing?.name}</h6>
+            <h6>{globalState.state.currently_playing?.name}</h6>
             <div>
               <p>
-                {spotify.audio.currently_playing?.artists
+                {globalState.state.currently_playing?.artists
                   .map((artist) => artist?.name)
                   .join(", ")}{" "}
                 -{" "}

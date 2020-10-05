@@ -1,11 +1,15 @@
 .songRow {
     margin-left: 20px;
-    padding: 20px;
+    padding: 20px 20px 20px 0;
     display: flex;
     align-items: center;
     z-index: 100;
     color: white;
     border-bottom:2px solid #fff;
+  }
+
+  .songRow .MuiIconButton-root{
+    padding-left:0;
   }
   
   .songRow:hover {

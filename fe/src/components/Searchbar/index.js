@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import "./index.css";
 import { store } from "../../store.js";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
@@ -30,16 +29,11 @@ function Searchbar() {
   };
 
   return (
-    <form onSubmit={searchSpotify}>
-      <Input
-        className="input-with-icon-adornment"
-        onChange={(e) => setInput(e.target.value)}
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        }
-      />
+    <form onSubmit={searchSpotify} className="searchBar">
+      <SearchIcon />
+      <input className="input-with-icon-adornment"
+        placeholder="Search by track or name"
+        onChange={(e) => setInput(e.target.value)}/>
     </form>
   );
 }
