@@ -18,6 +18,10 @@ class SpotifyInstance {
     this.audio.pause();
     this.audio["is_playing"] = false;
   }
+
+  setVolume(vol) {
+    this.audio.volume = vol / 100;
+  }
 }
 
 const spotify = new SpotifyInstance();

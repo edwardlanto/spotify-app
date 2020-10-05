@@ -16,8 +16,9 @@ function Footer() {
   const globalState = useContext(store);
   const { dispatch } = globalState;
 
-  const [value, setValue] = React.useState(30);
+  const [value, setValue] = React.useState(100);
   const handleChange = (event, newValue) => {
+    spotify.setVolume(newValue);
     setValue(newValue);
   };
 
@@ -123,16 +124,16 @@ function Footer() {
       is_playing: true,
     });
 
-    // dispatch({
-    //   type: "SET_CURRENTLY_PLAYING",
-    //   currently_playing: firstSong,
-    // });
+    dispatch({
+      type: "SET_CURRENTLY_PLAYING",
+      currently_playing: firstSong,
+    });
 
-    // // If first song is chosen, set index to 0 and set to keep track for prev & next functions.
-    // dispatch({
-    //   type: "SET_CURRENT_INDEX",
-    //   index: 0,
-    // });
+    // If first song is chosen, set index to 0 and set to keep track for prev & next functions.
+    dispatch({
+      type: "SET_CURRENT_INDEX",
+      index: 0,
+    });
   };
 
   return (
