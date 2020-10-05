@@ -42,12 +42,8 @@
     width:300px;
 }
 
-.footer__green{
-    color: #1ed15e;
-}
-
-.footer__right *.MuiSlider-root{
-    color:green;
+.footer__sliderContainer.MuiGrid-spacing-xs-1{
+    width: 93%;
 }
 
 .footer__songInfo > h4{

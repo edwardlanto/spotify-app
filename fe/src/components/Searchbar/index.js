@@ -22,6 +22,19 @@ function Searchbar() {
         search_data: data
       })
 
+      dispatch({
+        type:"SET_CURRENT_PLAYLIST",
+        current_playlist: data?.data
+      })
+
+      dispatch({
+        type:"SET_CURRENT_INDEX",
+        index: 1
+      })
+
+      
+
+
       history.push('/search')
     }catch(err){
       console.log('err');
