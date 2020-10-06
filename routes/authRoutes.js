@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const querystring = require("querystring");
-const redirect_uri = "http://localhost:8888/callback";
+const cookieParser = require("cookie-parser");
+const DEBUG = process.env.NODE_ENV === "development";
+const redirect_uri = DEBUG === true ? "http://localhost:8888/callback" : "/callback"
 const axios = require("axios");
 const _SpotifyWebApi = require("spotify-web-api-node");
 const SpotifyWebApi = new _SpotifyWebApi();
