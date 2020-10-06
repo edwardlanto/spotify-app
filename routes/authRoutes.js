@@ -80,7 +80,7 @@ router.route("/callback").get(async (req, res) => {
 
       // Get the authenticated user
     }
-    res.redirect("http://localhost:3000");
+    res.redirect(DEBUG === true ? "http://localhost:3000" : "https://spotify-app-edward-lanto.herokuapp.com/");
   } catch (err) {
     res.status(500).send(err.message);
   }
