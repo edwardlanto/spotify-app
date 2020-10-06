@@ -31,7 +31,7 @@ async function getAccessToken({ code }) {
     },
     auth: {
       username: process.env.CLIENT_ID,
-      password: process.env.CLIENT_SECRET,
+      password: process.env.CLIENT_SECRET
     },
   })
     .then((response) => {
