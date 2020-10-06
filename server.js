@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const DEBUG = process.env.NODE_ENV === "development";
+const PORT = process.env.PORT || 8888
 
 require("dotenv").config();
 
@@ -15,9 +16,9 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 if(DEBUG){
-  app.use(express.static(__dirname + "/fe/public"));
+  app.use(express.static("fe/public"));
 }else{
-  app.use(express.static(__dirname + "/fe/build"));
+  app.use(express.static("fe/build"));
 }
 
 
@@ -30,7 +31,6 @@ app.use("/", [authRouter]);
 app.use("/spotify", spotifyRouter);
 
 console.log("Listening on 8888");
-const PORT = process.env.PORT || 8888
 app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });

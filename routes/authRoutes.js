@@ -14,6 +14,8 @@ const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state"
 ];
+const PORT = process.env.PORT || 8888
+
 console.log("PROCESS", process.env.NODE_ENV)
 // This access token is to make http requests.
 async function getAccessToken({ code }) {
