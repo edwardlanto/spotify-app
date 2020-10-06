@@ -12,7 +12,7 @@ function Login() {
         {/* // Spotify Logo
             
             // Login Button */}
-        <a href="http://localhost:5000/login">Login with Spotify</a>
+        <a href="https://spotify-app-edward-lanto.herokuapp.com/login">Login with Spotify</a>
       </div>
     </div>
   );
