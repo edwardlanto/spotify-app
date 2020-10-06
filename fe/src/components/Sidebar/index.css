@@ -34,3 +34,22 @@
     color:#fff;
 }
 
+.sidebar__top > *{
+    display:flex;
+    align-items:center;
+    margin-bottom:5px;
+    color:#fff;
+    text-decoration:none;
+}
+
+.sidebar__top .MuiSvgIcon-root{
+    padding-right:15px;
+}
+
+.sidebar button{
+    background:transparent;
+    color:#fff;
+    border:none;
+    padding-left:0;
+}
+

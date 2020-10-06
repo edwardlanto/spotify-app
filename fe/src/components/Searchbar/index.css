@@ -9,7 +9,6 @@
     font-size: 13.3px;
     font-weight: bold;
     border: none;
-    padding-left: 15px;
 }
 
 .searchBar input::placeholder { 

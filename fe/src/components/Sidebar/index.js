@@ -7,21 +7,24 @@ import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import axios from "axios";
 import { store } from "../../store.js";
 import { Link } from "react-router-dom";
-import Searchbar from '../../components/Searchbar';
+import Searchbar from "../../components/Searchbar";
+import { useHistory } from "react-router-dom";
 
 function Sidebar({ playlists }) {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-  const getPlaylist = async (id) => {
-    const data = await axios.get("/spotify/get_playlist", {
+  const history = useHistory();
+  const getPlaylist = (id) => {
+    history.push("/");
+    const data = axios.get("/spotify/get_playlist", {
       params: {
         id,
       },
-    });
+    }).then(res => res)
 
     dispatch({
       type: "SET_CURRENT_PLAYLIST",
-      current_playlist: data.data,
+      current_playlist: data.data
     });
   };
 
@@ -32,13 +35,17 @@ function Sidebar({ playlists }) {
         alt="logo"
         className="sidebar__logo"
       />
-      <Link to="/"><SidebarOption title="Home" Icon={HomeIcon} className="sidebar__icon" /></Link>
-      <Searchbar />
-      <SidebarOption
-        title="Your Library"
-        Icon={LibraryMusicIcon}
-        className="sidebar__icon"
-      />
+      <div className="sidebar__top">
+        <Link to="/">
+          <HomeIcon />
+          <h4>Home</h4>
+        </Link>
+        <Searchbar />
+        <button type="button">
+          <LibraryMusicIcon />
+          <h4>Your Library</h4>
+        </button>
+      </div>
       <strong className="sidebar__title">Playlists</strong>
       <hr />
       {playlists?.items &&

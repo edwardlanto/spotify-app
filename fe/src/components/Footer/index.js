@@ -23,57 +23,67 @@ function Footer() {
   };
 
   const skipNext = () => {
-    if (globalState.state.index === null) {
-      playFirstSong();
-    } else {
-      spotify.play(
-        globalState.state.current_playlist.tracks.items[
-          globalState.state.index + 1
-        ].track
-      );
-
-      dispatch({
-        type: "SET_CURRENTLY_PLAYING",
-        currently_playing:
+    if (window.location.href.indexOf("search") > -1) {
+      spotify.play(globalState.state.search_data.data.tracks[globalState.state.index + 1]);
+    }else{
+      if (globalState.state.index === null) {
+        playFirstSong();
+      } else {
+        spotify.play(
           globalState.state.current_playlist.tracks.items[
             globalState.state.index + 1
-          ].track,
-      });
-
-      dispatch({
-        type: "SET_CURRENT_INDEX",
-        index: globalState.state.index + 1,
-      });
+          ].track
+        );
+  
+        dispatch({
+          type: "SET_CURRENTLY_PLAYING",
+          currently_playing:
+            globalState.state.current_playlist.tracks.items[
+              globalState.state.index + 1
+            ].track,
+        });
+      }
     }
+    dispatch({
+      type: "SET_CURRENT_INDEX",
+      index: globalState.state.index + 1,
+    });
+
   };
 
   const skipPrevious = () => {
-    if (globalState.state.index === null || globalState.state.index === 0) {
-      playFirstSong();
-    } else {
-      spotify.play(
-        globalState.state.current_playlist.tracks.items[
-          globalState.state.index - 1
-        ].track
-      );
 
-      dispatch({
-        type: "SET_CURRENTLY_PLAYING",
-        currently_playing:
+    // Checks if page is search page, because playlists and search response have different formatting.
+    if (window.location.href.indexOf("search") > -1) {
+      spotify.play(globalState.state.search_data.data.tracks[globalState.state.index - 1]);
+    }else{
+      if (globalState.state.index === null || globalState.state.index === 0) {
+        playFirstSong();
+      } else {
+        spotify.play(
           globalState.state.current_playlist.tracks.items[
             globalState.state.index - 1
-          ].track,
-      });
-
+          ].track
+        );
+  
+        dispatch({
+          type: "SET_CURRENTLY_PLAYING",
+          currently_playing:
+            globalState.state.current_playlist.tracks.items[
+              globalState.state.index - 1
+            ].track,
+        });
+      }
+  
       dispatch({
-        type: "SET_CURRENT_INDEX",
-        index: globalState.state.index - 1,
+        type: "SET_IS_PLAYING",
+        is_playing: true,
       });
     }
 
     dispatch({
-      type: "SET_IS_PLAYING",
-      is_playing: true,
+      type: "SET_CURRENT_INDEX",
+      index: globalState.state.index - 1,
     });
   };
 
