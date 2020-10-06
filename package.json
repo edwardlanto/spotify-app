@@ -19,7 +19,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"NODE_ENV=production nodemon server\" \"cd fe && npm start\"",
+    "start": "concurrently \"nodemon server\" \"cd fe && npm start\"",
     "dev": "concurrently \"cross-env NODE_ENV=development nodemon server\" \"cd fe && npm start\""
   },
   "author": "",
