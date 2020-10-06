@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
 import { store } from "../../store";
 import SongRow from "../../components/SongRow";
 import "./index.css";

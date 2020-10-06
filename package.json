@@ -18,12 +18,13 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "dev": "concurrently \"nodemon server\" \"cd fe && npm start\""
+    "start": "concurrently \"NODE_ENV=production nodemon server\" \"cd fe && npm start\"",
+    "dev": "concurrently \"cross-env NODE_ENV=development nodemon server\" \"cd fe && npm start\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "nodemon": "^2.0.4"
   },
   "engines": {

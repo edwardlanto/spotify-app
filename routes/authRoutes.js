@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const querystring = require("querystring");
-const cookieParser = require("cookie-parser");
 const DEBUG = process.env.NODE_ENV === "development";
 const redirect_uri = DEBUG === true ? "http://localhost:8888/callback" : "/callback"
 const axios = require("axios");
@@ -15,7 +14,7 @@ const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state"
 ];
-
+console.log("PROCESS", process.env.NODE_ENV)
 // This access token is to make http requests.
 async function getAccessToken({ code }) {
   const token = await axios({

@@ -12,7 +12,7 @@ function Login() {
         {/* // Spotify Logo
             
             // Login Button */}
-        <a href="/login">Login with Spotify</a>
+        <a href="http://localhost:8888/login">Login with Spotify</a>
       </div>
     </div>
   );
