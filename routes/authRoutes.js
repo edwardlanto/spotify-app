@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const querystring = require("querystring");
 const DEBUG = process.env.NODE_ENV === "development";
-const redirect_uri = DEBUG === true ? "http://localhost:5000/callback" : "/callback"
+const redirect_uri = DEBUG === true ? "http://localhost:5000/callback" : "https://spotify-app-edward-lanto.herokuapp.com/callback"
 const axios = require("axios");
 const _SpotifyWebApi = require("spotify-web-api-node");
 const SpotifyWebApi = new _SpotifyWebApi();
