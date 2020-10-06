@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const querystring = require("querystring");
 const DEBUG = process.env.NODE_ENV === "development";
-const redirect_uri = DEBUG === true ? "http://localhost:8888/callback" : "/callback"
+const redirect_uri = DEBUG === true ? "http://localhost:5000/callback" : "/callback"
 const axios = require("axios");
 const _SpotifyWebApi = require("spotify-web-api-node");
 const SpotifyWebApi = new _SpotifyWebApi();
@@ -14,8 +14,7 @@ const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state"
 ];
-const PORT = process.env.PORT || 8888
-
+const PORT = process.env.PORT || 5000
 console.log("PROCESS", process.env.NODE_ENV)
 // This access token is to make http requests.
 async function getAccessToken({ code }) {
