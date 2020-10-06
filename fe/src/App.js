@@ -10,8 +10,6 @@ import Search from "./views/Search"
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { store } from "./store";
-import Spotify from 'spotify-web-api-js';
-let spotify = new Spotify();
 
 function App() {
   const globalState = useContext(store);
@@ -42,11 +40,6 @@ function App() {
           dispatch({
             type: "SET_CURRENT_PLAYLIST",
             current_playlist: initialData?.data.current_playlist,
-          });
-
-          dispatch({
-            type: "SET_SPOTIFY",
-            spotify
           });
         }
       }

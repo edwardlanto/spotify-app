@@ -16,15 +16,28 @@ function Sidebar({ playlists }) {
   const history = useHistory();
   const getPlaylist = (id) => {
     history.push("/");
-    const data = axios.get("/spotify/get_playlist", {
-      params: {
-        id,
-      },
-    }).then(res => res)
-
+    
     dispatch({
-      type: "SET_CURRENT_PLAYLIST",
-      current_playlist: data.data
+      type: "SET_IS_LOADING",
+      is_loading: true
+    });
+
+    axios.get("/spotify/get_playlist", {
+      params: {
+        id
+      }
+    }).then((res) => {
+
+      dispatch({
+        type: "SET_CURRENT_PLAYLIST",
+        current_playlist: res.data
+      });
+
+      dispatch({
+        type: "SET_IS_LOADING",
+        is_loading: false
+      });
+
     });
   };
 

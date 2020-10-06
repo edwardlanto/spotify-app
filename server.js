@@ -14,7 +14,12 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-app.use(express.static(__dirname + "/fe/public"));
+if(DEBUG){
+  app.use(express.static(__dirname + "/fe/public"));
+}else{
+  app.use(express.static(__dirname + "/fe/build"));
+}
+
 
 
 // Routes

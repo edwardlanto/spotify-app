@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, {useContext} from "react";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";

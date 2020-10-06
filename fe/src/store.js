@@ -7,7 +7,8 @@ const initialState = {
   spotify: null,
   is_playing: false,
   index: null,
-  search_data:[]
+  search_data:[],
+  is_loading: false
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -46,6 +47,12 @@ const StateProvider = ({ children }) => {
           ...state,
           search_data: action.search_data
         };
+
+        case "SET_IS_LOADING":
+          return {
+            ...state,
+            is_loading: action.is_loading
+          };
       default:
         return state;
     }
