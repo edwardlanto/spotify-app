@@ -1,13 +1,14 @@
 .sidebar{
-    border:1px solid #000;
-    height:100vh;
-    flex:0.2;
-    color:#fff;
-    min-width:230px;
-    background-color:hsl(0, 0%, 2%);
-    padding-left:10px;
-    padding-right:10px;
+    border: 1px solid #000;
+    height: 100vh;
+    flex: 0.2 1;
+    color: #fff;
+    min-width: 230px;
+    background-color: hsl(0, 0%, 2%);
+    padding-left: 10px;
+    padding-right: 10px;
     transform: translateY(-100px);
+    padding-top: 100px;
 }
 
 .sidebar__logo{

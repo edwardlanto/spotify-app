@@ -11,7 +11,7 @@ function Body() {
   const globalState = useContext(store);
 
   return (
-    <div className="body">
+    <Grid container className="body">
       <div className="body__info">
         <div className="body__infoText">
           <strong>PLAYLIST</strong>
@@ -25,7 +25,7 @@ function Body() {
               <FavoriteIcon fontSize="large" />
               <MoreHorizIcon />
             </div>
-            <Grid container spacing={1} alignItems="center">
+            <Grid container spacing={1} alignItems="center" xs="hidden">
               <Grid item xs={4}>
                 Title
               </Grid>
@@ -51,7 +51,7 @@ function Body() {
           </Grid>
         )}
       </div>
-    </div>
+    </Grid>
   );
 }
 

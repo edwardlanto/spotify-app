@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
@@ -16,7 +16,7 @@ function Footer() {
   const globalState = useContext(store);
   const { dispatch } = globalState;
 
-  const [value, setValue] = React.useState(100);
+  const [value, setValue] = React.useState(50);
   const handleChange = (event, newValue) => {
     spotify.setVolume(newValue);
     setValue(newValue);
@@ -25,7 +25,7 @@ function Footer() {
   const skipNext = () => {
     if (window.location.href.indexOf("search") > -1) {
       spotify.play(globalState.state.search_data.data.tracks[globalState.state.index + 1]);
-    }else{
+    } else {
       if (globalState.state.index === null) {
         playFirstSong();
       } else {
@@ -34,7 +34,7 @@ function Footer() {
             globalState.state.index + 1
           ].track
         );
-  
+
         dispatch({
           type: "SET_CURRENTLY_PLAYING",
           currently_playing:
@@ -49,6 +49,11 @@ function Footer() {
       index: globalState.state.index + 1,
     });
 
+    dispatch({
+      type: "SET_IS_PLAYING",
+      is_playing: true
+    });
+
   };
 
   const skipPrevious = () => {
@@ -56,7 +61,7 @@ function Footer() {
     // Checks if page is search page, because playlists and search response have different formatting.
     if (window.location.href.indexOf("search") > -1) {
       spotify.play(globalState.state.search_data.data.tracks[globalState.state.index - 1]);
-    }else{
+    } else {
       if (globalState.state.index === null || globalState.state.index === 0) {
         playFirstSong();
       } else {
@@ -65,7 +70,7 @@ function Footer() {
             globalState.state.index - 1
           ].track
         );
-  
+
         dispatch({
           type: "SET_CURRENTLY_PLAYING",
           currently_playing:
@@ -73,8 +78,13 @@ function Footer() {
               globalState.state.index - 1
             ].track,
         });
+
+        dispatch({
+          type: "SET_IS_PLAYING",
+          is_playing: true
+        });
       }
-  
+
       dispatch({
         type: "SET_IS_PLAYING",
         is_playing: true,
@@ -149,7 +159,7 @@ function Footer() {
   return (
     <div className="footer">
       <Grid container spacing={1}>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <Grid container direction="row" alignItems="center">
             <img
               className="footer__album"
@@ -169,7 +179,7 @@ function Footer() {
             </div>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={4} md={6}>
           <Grid container direction="row" justify="center">
             <IconButton aria-label="previous" onClick={skipPrevious}>
               <SkipPreviousIcon />
@@ -180,8 +190,8 @@ function Footer() {
             </IconButton>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Grid container spacing={1} className="footer__sliderContainer">
+        <Grid item xs={12} sm={4} md={3}>
+          <Grid container spacing={1} className="footer__sliderContainer" alignItems="center">
             <Grid item>
               <VolumeDown />
             </Grid>

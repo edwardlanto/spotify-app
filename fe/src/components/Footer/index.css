@@ -44,6 +44,7 @@
 
 .footer__sliderContainer.MuiGrid-spacing-xs-1{
     width: 93%;
+    height:100%;
 }
 
 .footer__songInfo > h4{

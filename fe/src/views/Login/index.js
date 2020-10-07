@@ -1,7 +1,8 @@
 import React from "react";
 import "./index.css";
-
+const DEBUG = process.env.NODE_ENV === "development";
 function Login() {
+  console.log('process', process.env)
   return (
     <div className="login">
       <div className="login__container">
@@ -12,7 +13,7 @@ function Login() {
         {/* // Spotify Logo
             
             // Login Button */}
-        <a href="https://spotify-app-edward-lanto.herokuapp.com/login">Login with Spotify</a>
+        <a href={ DEBUG ? 'http://localhost:5000/login' : 'https://spotify-app-edward-lanto.herokuapp.com/login'}>Login with Spotify</a>
       </div>
     </div>
   );
