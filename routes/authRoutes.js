@@ -74,15 +74,12 @@ router.route("/login").get((req, res) => {
 });
 
 router.route("/callback").get(async (req, res) => {
-  console.log("RAN")
   try {
     const code = req.query.code;
     const data = await getAccessToken({ code });
     if (data.access_token) {
       res.cookie("access_token", data.access_token, { maxAge: 900000 });
       res.cookie("refresh_token", data.refresh_token, { maxAge: 900000 });
-
-      // Get the authenticated user
     }
     res.redirect(DEBUG === true ? "http://localhost:3000" : "https://spotify-app-edward-lanto.herokuapp.com/");
   } catch (err) {

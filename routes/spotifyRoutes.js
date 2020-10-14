@@ -9,6 +9,7 @@ router.route("/*").get(async (req, res, next) => {
     ] = `Bearer ${req.cookies.access_token}`;
     next();
   } catch (err) {
+    res.redirect('/refresh_token')
     res.status(500).send(err.message)
   }
 });

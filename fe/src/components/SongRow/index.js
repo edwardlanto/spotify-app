@@ -77,7 +77,7 @@ function SongRow({ track, index }) {
   };
 
   return (
-    <Grid container className="songRow" direction="row" spacing={1}>
+    <Grid container className="songRow" direction="row">
       <Grid item sm={6} md={4}>
         <Grid container spacing={1}>
           <Grid item>{playPauseButton(track)}</Grid>
