@@ -1,5 +1,3 @@
-"use strict";
-
 const express = require("express"); // Express web server framework
 const app = express();
 const cors = require("cors");
@@ -10,21 +8,27 @@ const PORT = process.env.PORT || 5000
 
 require("dotenv").config();
 
+
 app.use(cors());
 app.use(express.json());
+
+// Middleware to logging accessed routes
 app.use(morgan("dev"));
+
+// Uses cookieParser to pass back access token to UI.
 app.use(cookieParser());
 
+// Set production build
 if(DEBUG){
   app.use(express.static("fe/public"));
 }else{
   app.use(express.static("fe/build"));
 }
 
-
-
-// Routes
+// All Auth Routes
 const authRouter = require("./routes/authRoutes");
+
+// All Spotify Routes
 const spotifyRouter = require("./routes/spotifyRoutes");
 
 app.use("/", [authRouter]);

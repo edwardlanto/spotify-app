@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const querystring = require("querystring");
 const DEBUG = process.env.NODE_ENV === "development";
+
+// Different URI for environment
 const redirect_uri = DEBUG === true ? "http://localhost:5000/callback" : "https://spotify-app-edward-lanto.herokuapp.com/callback"
 const axios = require("axios");
-const _SpotifyWebApi = require("spotify-web-api-node");
-const SpotifyWebApi = new _SpotifyWebApi();
+
+// Uses Spotify
+
 const generateRandomString = require("../utils/index");
 let state = generateRandomString(64);
 let stateKey = "spotify_auth_state";
@@ -74,7 +77,6 @@ router.route("/callback").get(async (req, res) => {
     const code = req.query.code;
     const data = await getAccessToken({ code });
     if (data.access_token) {
-      SpotifyWebApi.setAccessToken(data.access_token);
       res.cookie("access_token", data.access_token, { maxAge: 900000 });
       res.cookie("refresh_token", data.refresh_token, { maxAge: 900000 });
 

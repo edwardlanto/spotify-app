@@ -159,26 +159,30 @@ function Footer() {
   return (
     <div className="footer">
       <Grid container spacing={1}>
+
+        {/* Conditional  */}
+        {globalState.state.currently_playing ?
         <Grid item xs={12} sm={4} md={3}>
-          <Grid container direction="row" alignItems="center">
-            <img
-              className="footer__album"
-              src={globalState.state.currently_playing?.album?.images[0].url}
-              alt=""
-            />
-            <div className="songRow__info">
-              <h6>{globalState.state.currently_playing?.name}</h6>
-              <div>
-                <p>
-                  {globalState.state.currently_playing?.artists
-                    .map((artist) => artist?.name)
-                    .join(", ")}{" "}
-                  -{" "}
-                </p>
-              </div>
+        <Grid container direction="row" alignItems="center">
+          <img
+            className="footer__album"
+            src={globalState.state.currently_playing?.album?.images[0].url}
+            alt=""
+          />
+          <div className="songRow__info">
+            <h6>{globalState.state.currently_playing?.name}</h6>
+            <div>
+              <p>
+                {globalState.state.currently_playing?.artists
+                  .map((artist) => artist?.name)
+                  .join(", ")}{" "}
+                -{" "}
+              </p>
             </div>
-          </Grid>
+          </div>
         </Grid>
+      </Grid>
+      : <Grid item xs={12} sm={4} md={3}>Please play a song</Grid>}
         <Grid item xs={12} sm={4} md={6}>
           <Grid container direction="row" justify="center">
             <IconButton aria-label="previous" onClick={skipPrevious}>

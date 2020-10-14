@@ -1,17 +1,16 @@
 import React, { useEffect, useContext } from "react";
 import "./index.css";
 import SongRow from "../SongRow";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { store } from "../../store.js";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Hidden from "@material-ui/core/Hidden";
 
 function Body() {
   const globalState = useContext(store);
 
   return (
-    <Grid container className="body">
+    <div className="body">
       <div className="body__info">
         <div className="body__infoText">
           <strong>PLAYLIST</strong>
@@ -22,22 +21,22 @@ function Body() {
         {globalState.state.is_loading === false ? (
           <>
             <div className="body__icons">
-              <FavoriteIcon fontSize="large" />
-              <MoreHorizIcon />
             </div>
             <Grid container spacing={1} alignItems="center" xs="hidden">
-              <Grid item xs={4}>
+              <Grid item xs={4} md={4}>
                 Title
               </Grid>
-              <Grid item xs={3}>
+              <Grid item md={3}>
                 Artist
               </Grid>
+              <Hidden smDown={true}>
               <Grid item xs={3}>
                 Release Date
               </Grid>
               <Grid item xs={2}>
                 Time
               </Grid>
+              </Hidden>
             </Grid>
             {globalState.state.current_playlist?.tracks?.items.map(
               (item, i) => (
@@ -51,7 +50,7 @@ function Body() {
           </Grid>
         )}
       </div>
-    </Grid>
+    </div>
   );
 }
 

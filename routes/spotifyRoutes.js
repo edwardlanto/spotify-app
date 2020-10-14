@@ -4,7 +4,6 @@ const axios = require("axios");
 // Intercept every route call
 router.route("/*").get(async (req, res, next) => {
   try {
-    const host = req.headers;
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${req.cookies.access_token}`;

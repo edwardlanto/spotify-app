@@ -8,6 +8,8 @@ import HomeIcon from "@material-ui/icons/Home";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import { Link } from "react-router-dom";
 import SidebarOption from "../SidebarOption.js";
+import MenuIcon from "@material-ui/icons/Menu";
+import ClearIcon from "@material-ui/icons/Clear";
 
 function Header({ user, playlists, getPlaylist }) {
   const [open, setOpen] = useState(() => false);
@@ -15,12 +17,17 @@ function Header({ user, playlists, getPlaylist }) {
     <div className="sidebar__mobileMenu">
       <div className="sidebar sidebar__desktop">
         <div className="sidebar__top">
+        <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png"
+            alt="logo"
+            className="sidebar__logo"
+          />
           <Link to="/">
             <HomeIcon />
             <h4>Home</h4>
           </Link>
           <Searchbar />
-          <button type="button" >
+          <button type="button">
             <LibraryMusicIcon />
             <h4>Your Library</h4>
           </button>
@@ -39,24 +46,24 @@ function Header({ user, playlists, getPlaylist }) {
         })}
       </div>
     </div>
-  )
+  );
 
   return (
-    <Grid container justify="space-between" className="header">
-      <Grid item xs={1}>
-        <img
-          src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
-          alt="logo"
-          className="header__logo"
-        />
-      </Grid>
-      <Grid item>
-        <Button onClick={() => setOpen(true)} className="header__menuButton">
-          test
-        </Button>
-        <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-          {list()}
-        </Drawer>
+    <Grid container justify="space-between" className="header" alignItems="center">
+      <Grid item xs={8} sm={3}>
+        <Grid container direction="row" alignItems="center">
+          <Button onClick={() => setOpen(true)} className="header__menuButton">
+            {open  === false ? <MenuIcon /> : <ClearIcon />}
+          </Button>
+          <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+            {list()}
+          </Drawer>
+          <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png"
+            alt="logo"
+            className="header__logo"
+          />
+        </Grid>
       </Grid>
       <Grid item className="header__right">
         <h4>{user?.display_name}</h4>

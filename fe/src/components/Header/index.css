@@ -10,6 +10,11 @@
   color:#fff;
 }
 
+.header__logo{
+  max-width:150px;
+  padding: 20px 0;
+}
+
 .header .MuiInput-underline:before {
     border-bottom: 1px solid #fff;
 }

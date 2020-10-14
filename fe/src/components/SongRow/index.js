@@ -6,6 +6,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { store } from "../../store.js";
 import PauseIcon from "@material-ui/icons/Pause";
 import spotify from "../../utils/spotifySingleton";
+import Hidden from "@material-ui/core/Hidden";
 
 function SongRow({ track, index }) {
   const globalState = useContext(store);
@@ -17,7 +18,7 @@ function SongRow({ track, index }) {
     // Dispatch currently playings for other components to consume & to update ui.
     dispatch({
       type: "SET_IS_PLAYING",
-      is_playing: true
+      is_playing: true,
     });
 
     dispatch({
@@ -35,7 +36,7 @@ function SongRow({ track, index }) {
     spotify.pause();
     dispatch({
       type: "SET_IS_PLAYING",
-      is_playing: false
+      is_playing: false,
     });
   };
 
@@ -46,7 +47,10 @@ function SongRow({ track, index }) {
   };
 
   const playButton = (trackParams) => {
-    if (globalState.state.is_playing === true && trackParams?.preview_url === spotify.audio.src) {
+    if (
+      globalState.state.is_playing === true &&
+      trackParams?.preview_url === spotify.audio.src
+    ) {
       return (
         <IconButton onClick={() => pause()}>
           <PauseIcon />
@@ -75,32 +79,39 @@ function SongRow({ track, index }) {
       container
       spacing={1}
       className="songRow"
-      alignItems="center"
       direction="row"
     >
-      <Grid item xs={4}>
-      <Grid container direction="row">
-        {playButton(track)}
-        <img
-          className="songRow__album"
-          src={track?.album.images[0].url}
-          alt=""
-        />
+      <Grid item sm={6} md={4}>
+        <Grid container >
+          {playButton(track)}
+          <img
+            className="songRow__album"
+            src={track?.album.images[0].url}
+            alt=""
+          />
           <div className="songRow__info">
             <h1>{track?.name}</h1>
             <p>{track?.artists.map((artist) => artist.name).join(", ")} - </p>
           </div>
         </Grid>
       </Grid>
+
+      <Hidden smDown={true}>
+        <Grid item xs={3}>
+          {track?.album.name}
+        </Grid>
+        <Grid item xs={3}>
+          {track?.album.release_date}
+        </Grid>
+        <Grid item xs={2}>
+          {millisToMinutesAndSeconds(track?.duration_ms)}
+        </Grid>
+      </Hidden>
+      <Hidden mdUp={true}>
       <Grid item xs={3}>
-        {track?.album.name}
+        TEST
       </Grid>
-      <Grid item xs={3}>
-        {track?.album.release_date}
-      </Grid>
-      <Grid item xs={2}>
-        {millisToMinutesAndSeconds(track?.duration_ms)}
-      </Grid>
+      </Hidden>
     </Grid>
   );
 }
