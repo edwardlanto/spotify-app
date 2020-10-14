@@ -22,13 +22,15 @@ function Body() {
           <>
             <div className="body__icons">
             </div>
-            <Grid container spacing={1} alignItems="center" xs="hidden">
+            <Grid container alignItems="center" xs="hidden">
               <Grid item xs={4} md={4}>
                 Title
               </Grid>
-              <Grid item md={3}>
-                Artist
-              </Grid>
+              <Hidden smDown={true}>
+                <Grid item md={3}>
+                  Artist
+                </Grid>
+              </Hidden>
               <Hidden smDown={true}>
               <Grid item xs={3}>
                 Release Date

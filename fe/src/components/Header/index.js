@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import SidebarOption from "../SidebarOption.js";
 import MenuIcon from "@material-ui/icons/Menu";
 import ClearIcon from "@material-ui/icons/Clear";
+import Hidden from "@material-ui/core/Hidden";
 
 function Header({ user, playlists, getPlaylist }) {
   const [open, setOpen] = useState(() => false);
@@ -50,14 +51,16 @@ function Header({ user, playlists, getPlaylist }) {
 
   return (
     <Grid container justify="space-between" className="header" alignItems="center">
-      <Grid item xs={8} sm={3}>
+      <Grid item xs={8} sm={6}>
         <Grid container direction="row" alignItems="center">
-          <Button onClick={() => setOpen(true)} className="header__menuButton">
-            {open  === false ? <MenuIcon /> : <ClearIcon />}
-          </Button>
-          <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-            {list()}
-          </Drawer>
+          <Hidden mdUp={true}>
+            <Button onClick={() => setOpen(true)} className="header__menuButton">
+              {open  === false ? <MenuIcon /> : <ClearIcon />}
+            </Button>
+            <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+              {list()}
+            </Drawer>
+          </Hidden>
           <img
             src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png"
             alt="logo"

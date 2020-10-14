@@ -29,7 +29,7 @@
 .body__info {
   display: flex;
   align-items: flex-end;
-  padding: 10px;
+  padding: 10px 0;
 }
 
 .body__infoText {
@@ -49,6 +49,10 @@
 
 .body__infoText > p {
   font-size: 14px;
+}
+
+.body{
+  color:#fff;
 }
 
 @media (max-width:960px){

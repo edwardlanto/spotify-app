@@ -7,13 +7,14 @@ import { store } from "../../store.js";
 import PauseIcon from "@material-ui/icons/Pause";
 import spotify from "../../utils/spotifySingleton";
 import Hidden from "@material-ui/core/Hidden";
-import Popover from '@material-ui/core/Popover';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Popover from "@material-ui/core/Popover";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 function SongRow({ track, index }) {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-  const [menuState, setMenuState] = useState(() => false);
+  const [infoState, setInfoState] = useState(() => false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const play = (trackParams) => {
     spotify.play(trackParams);
 
@@ -49,9 +50,9 @@ function SongRow({ track, index }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  // Renders pause Button. Checks if audio is playing and from the list of 
+  // Renders pause Button. Checks if audio is playing and from the list of
   // songs, it matches the current audio to the preview url.
-  const pauseButton = (trackParams) => {
+  const playPauseButton = (trackParams) => {
     if (
       globalState.state.is_playing === true &&
       trackParams?.preview_url === spotify.audio.src
@@ -61,7 +62,7 @@ function SongRow({ track, index }) {
           <PauseIcon />
         </IconButton>
       );
-    }else {
+    } else {
       return (
         <IconButton onClick={() => play(trackParams)}>
           <PlayArrowIcon />
@@ -70,25 +71,29 @@ function SongRow({ track, index }) {
     }
   };
 
+  const handleInfoState = (event) => {
+    setAnchorEl(event.currentTarget);
+    setInfoState(true);
+  };
+
   return (
-    <Grid
-      container
-      spacing={1}
-      className="songRow"
-      direction="row"
-    >
+    <Grid container className="songRow" direction="row" spacing={1}>
       <Grid item sm={6} md={4}>
-        <Grid container >
-          {pauseButton(track)}
-          <img
-            className="songRow__album"
-            src={track?.album.images[0].url}
-            alt=""
-          />
-          <div className="songRow__info">
-            <h1>{track?.name}</h1>
-            <p>{track?.artists.map((artist) => artist.name).join(", ")} - </p>
-          </div>
+        <Grid container spacing={1}>
+          <Grid item>{playPauseButton(track)}</Grid>
+          <Grid>
+            <img
+              className="songRow__album"
+              src={track?.album.images[0].url}
+              alt=""
+            />
+          </Grid>
+          <Grid>
+            <div className="songRow__info">
+              <h1>{track?.name}</h1>
+              <p>{track?.artists.map((artist) => artist.name).join(", ")} - </p>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
 
@@ -103,13 +108,37 @@ function SongRow({ track, index }) {
           {millisToMinutesAndSeconds(track?.duration_ms)}
         </Grid>
       </Hidden>
+
+      {/* Extra info is added in a popover on moible */}
       <Hidden mdUp={true}>
-      <Grid item xs={3}>
-        <IconButton onClick={() => setMenuState(true)}>
-          <MoreHorizIcon />
-        </IconButton>
-      </Grid>
+        <Grid item xs={3}>
+          <IconButton onClick={handleInfoState}>
+            <MoreHorizIcon />
+          </IconButton>
+        </Grid>
       </Hidden>
+      <Popover
+        open={infoState}
+        anchorEl={anchorEl}
+        className="songRow__popOver"
+        onClose={() => setInfoState(false)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        {" "}
+        <Grid item xs={12}>
+          Release Date - {track?.album.release_date}
+        </Grid>
+        <Grid item xs={12}>
+            Time - {millisToMinutesAndSeconds(track?.duration_ms)}
+        </Grid>
+      </Popover>
     </Grid>
   );
 }

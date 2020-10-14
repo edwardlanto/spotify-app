@@ -164,14 +164,14 @@ function Footer() {
         {globalState.state.currently_playing ?
         <Grid item xs={12} sm={4} md={3}>
         <Grid container direction="row" alignItems="center">
-          <Grid item spacing={1}>
+          <Grid item xs={12} sm={2}>
           <img
             className="footer__album"
             src={globalState.state.currently_playing?.album?.images[0].url}
             alt=""
           />
           </Grid>
-          <Grid item sm={12} md={9}>
+          <Grid item xs={12} sm={9}>
           <div className="songRow__info">
             <h6>{globalState.state.currently_playing?.name}</h6>
             <div>
