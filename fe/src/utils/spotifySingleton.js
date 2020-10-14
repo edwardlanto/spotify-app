@@ -1,3 +1,5 @@
+
+// Created a singleton to control audio state throughout components
 class SpotifyInstance {
   constructor() {
     this.audio = new Audio();
@@ -25,5 +27,4 @@ class SpotifyInstance {
 }
 
 const spotify = new SpotifyInstance();
-Object.freeze(spotify);
 export default spotify;

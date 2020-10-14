@@ -10,6 +10,7 @@ function Searchbar() {
   const { dispatch } = globalStore;
   const [input, setInput] = useState(() => "");
   const history = useHistory();
+  const [error, setError] = useState(() => []);
 
   async function searchSpotify(e) {
     try {
@@ -23,7 +24,7 @@ function Searchbar() {
 
       history.push("/search");
     } catch (err) {
-      console.log("err");
+      setError(err.messaage)
     }
   }
 
@@ -35,6 +36,7 @@ function Searchbar() {
         placeholder="Search by track or name"
         onChange={(e) => setInput(e.target.value)}
       />
+      {error}
     </form>
   );
 }

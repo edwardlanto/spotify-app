@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
@@ -7,11 +7,13 @@ import { store } from "../../store.js";
 import PauseIcon from "@material-ui/icons/Pause";
 import spotify from "../../utils/spotifySingleton";
 import Hidden from "@material-ui/core/Hidden";
+import Popover from '@material-ui/core/Popover';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 function SongRow({ track, index }) {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-
+  const [menuState, setMenuState] = useState(() => false);
   const play = (trackParams) => {
     spotify.play(trackParams);
 
@@ -40,13 +42,16 @@ function SongRow({ track, index }) {
     });
   };
 
+  // Used to convert time
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const playButton = (trackParams) => {
+  // Renders pause Button. Checks if audio is playing and from the list of 
+  // songs, it matches the current audio to the preview url.
+  const pauseButton = (trackParams) => {
     if (
       globalState.state.is_playing === true &&
       trackParams?.preview_url === spotify.audio.src
@@ -56,16 +61,7 @@ function SongRow({ track, index }) {
           <PauseIcon />
         </IconButton>
       );
-    } else if (
-      globalState.state.is_playing === false &&
-      trackParams?.preview_url !== spotify.audio.src
-    ) {
-      return (
-        <IconButton onClick={() => play(trackParams)}>
-          <PlayArrowIcon />
-        </IconButton>
-      );
-    } else {
+    }else {
       return (
         <IconButton onClick={() => play(trackParams)}>
           <PlayArrowIcon />
@@ -83,7 +79,7 @@ function SongRow({ track, index }) {
     >
       <Grid item sm={6} md={4}>
         <Grid container >
-          {playButton(track)}
+          {pauseButton(track)}
           <img
             className="songRow__album"
             src={track?.album.images[0].url}
@@ -109,7 +105,9 @@ function SongRow({ track, index }) {
       </Hidden>
       <Hidden mdUp={true}>
       <Grid item xs={3}>
-        TEST
+        <IconButton onClick={() => setMenuState(true)}>
+          <MoreHorizIcon />
+        </IconButton>
       </Grid>
       </Hidden>
     </Grid>

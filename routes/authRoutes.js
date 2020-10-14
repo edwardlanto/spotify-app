@@ -19,6 +19,7 @@ const scopes = [
 ];
 const PORT = process.env.PORT || 5000
 console.log("PROCESS", process.env.NODE_ENV)
+
 // This access token is to make http requests.
 async function getAccessToken({ code }) {
   const token = await axios({
@@ -31,7 +32,7 @@ async function getAccessToken({ code }) {
     },
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     auth: {
       username: process.env.CLIENT_ID,
@@ -73,6 +74,7 @@ router.route("/login").get((req, res) => {
 });
 
 router.route("/callback").get(async (req, res) => {
+  console.log("RAN")
   try {
     const code = req.query.code;
     const data = await getAccessToken({ code });

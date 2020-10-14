@@ -10,7 +10,6 @@ import Search from "./views/Search";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { store } from "./store";
-import { useHistory } from "react-router-dom";
 
 function App() {
   const globalState = useContext(store);
@@ -19,29 +18,35 @@ function App() {
   const [user, setUser] = useState({});
   const [playlists, setPlaylists] = useState(() => []);
   const { dispatch } = globalState;
-  
+  const [error, setError] = useState(() => '');
+
   async function getPlaylist(id) {
+    try{
+      dispatch({
+        type: "SET_IS_LOADING",
+        is_loading: true,
+      });
+  
+      const data = await axios.get("/spotify/get_playlist", {
+        params: {
+          id,
+        },
+      });
+  
+      dispatch({
+        type: "SET_CURRENT_PLAYLIST",
+        current_playlist: data.data,
+      });
+  
+      dispatch({
+        type: "SET_IS_LOADING",
+        is_loading: false,
+      });
 
-    dispatch({
-      type: "SET_IS_LOADING",
-      is_loading: true,
-    });
+    }catch(err){
+      setError(err.message);
+    }
 
-    const data = await axios.get("/spotify/get_playlist", {
-      params: {
-        id,
-      },
-    });
-
-    dispatch({
-      type: "SET_CURRENT_PLAYLIST",
-      current_playlist: data.data,
-    });
-
-    dispatch({
-      type: "SET_IS_LOADING",
-      is_loading: false,
-    });
   }
 
   useEffect(() => {
@@ -49,20 +54,15 @@ function App() {
       if (!cookies.access_token) {
         setAuthorized(false);
       } else {
-        axios.post("/refresh_token", {
-          refresh_token: cookies.refresh_token,
-        });
         setAuthorized(true);
-        if (cookies.access_token) {
-          const initialData = await axios.get("/spotify/me");
-          setUser(initialData?.data?.user);
-          setPlaylists(initialData?.data?.playlists);
+        const initialData = await axios.get("/spotify/me");
+        setUser(initialData?.data?.user);
+        setPlaylists(initialData?.data?.playlists);
 
-          dispatch({
-            type: "SET_CURRENT_PLAYLIST",
-            current_playlist: initialData?.data.current_playlist,
-          });
-        }
+        dispatch({
+          type: "SET_CURRENT_PLAYLIST",
+          current_playlist: initialData?.data.current_playlist,
+        });
       }
     };
     checkAuth();
@@ -87,6 +87,7 @@ function App() {
                 <Route path="/search" exact component={Search} />
               </Switch>
               <Footer />
+              {error && error}
             </div>
           </>
         )}

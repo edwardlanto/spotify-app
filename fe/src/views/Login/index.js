@@ -2,7 +2,6 @@ import React from "react";
 import "./index.css";
 const DEBUG = process.env.NODE_ENV === "development";
 function Login() {
-  console.log('process', process.env)
   return (
     <div className="login">
       <div className="login__container">

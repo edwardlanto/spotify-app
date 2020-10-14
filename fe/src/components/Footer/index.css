@@ -22,7 +22,6 @@
 }
 
 .footer__album{
-    margin-right: 20px;
     object-fit: contain;
     height: 40px;
     border: 2px solid #fff;

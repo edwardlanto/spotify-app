@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
@@ -15,18 +15,21 @@ import spotify from "../../utils/spotifySingleton";
 function Footer() {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-
-  const [value, setValue] = React.useState(50);
-  const handleChange = (event, newValue) => {
-    spotify.setVolume(newValue);
-    setValue(newValue);
+  const [volume, setVolume] = useState(50);
+  const handleChange = (event, newVolume) => {
+    spotify.setVolume(newVolume);
+    setVolume(newVolume);
   };
 
   const skipNext = () => {
+
+    // Checks if audio is playing from search page and plays next song based on the body view or search view.
     if (window.location.href.indexOf("search") > -1) {
       spotify.play(globalState.state.search_data.data.tracks[globalState.state.index + 1]);
     } else {
       if (globalState.state.index === null) {
+
+        // If there is no current song playing, it will automatically pull the first song
         playFirstSong();
       } else {
         spotify.play(
@@ -58,7 +61,7 @@ function Footer() {
 
   const skipPrevious = () => {
 
-    // Checks if page is search page, because playlists and search response have different formatting.
+    // Goes to previous song on playlist and checks if page route on search to play appropriate list
     if (window.location.href.indexOf("search") > -1) {
       spotify.play(globalState.state.search_data.data.tracks[globalState.state.index - 1]);
     } else {
@@ -84,11 +87,6 @@ function Footer() {
           is_playing: true
         });
       }
-
-      dispatch({
-        type: "SET_IS_PLAYING",
-        is_playing: true,
-      });
     }
 
     dispatch({
@@ -98,6 +96,8 @@ function Footer() {
   };
 
   const playPause = () => {
+
+
     if (globalState.state.currently_playing === null) {
       playFirstSong();
     } else if (
@@ -164,11 +164,14 @@ function Footer() {
         {globalState.state.currently_playing ?
         <Grid item xs={12} sm={4} md={3}>
         <Grid container direction="row" alignItems="center">
+          <Grid item spacing={1}>
           <img
             className="footer__album"
             src={globalState.state.currently_playing?.album?.images[0].url}
             alt=""
           />
+          </Grid>
+          <Grid item sm={12} md={9}>
           <div className="songRow__info">
             <h6>{globalState.state.currently_playing?.name}</h6>
             <div>
@@ -180,6 +183,7 @@ function Footer() {
               </p>
             </div>
           </div>
+          </Grid>
         </Grid>
       </Grid>
       : <Grid item xs={12} sm={4} md={3}>Please play a song</Grid>}
@@ -201,7 +205,7 @@ function Footer() {
             </Grid>
             <Grid item xs>
               <Slider
-                value={value}
+                value={volume}
                 onChange={handleChange}
                 aria-labelledby="continuous-slider"
               />

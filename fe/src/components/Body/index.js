@@ -45,6 +45,8 @@ function Body() {
             )}
           </>
         ) : (
+
+          // Added Loader if body songs take a while to load
           <Grid container justify="center">
             <CircularProgress />
           </Grid>
