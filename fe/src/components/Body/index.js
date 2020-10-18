@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import SongRow from "../SongRow";
 import { store } from "../../store.js";

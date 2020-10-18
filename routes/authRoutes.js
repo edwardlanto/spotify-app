@@ -18,7 +18,6 @@ const scopes = [
   "user-modify-playback-state"
 ];
 const PORT = process.env.PORT || 5000
-console.log("PROCESS", process.env.NODE_ENV)
 
 // This access token is to make http requests.
 async function getAccessToken({ code }) {
@@ -87,9 +86,12 @@ router.route("/callback").get(async (req, res) => {
   }
 });
 
-router.route("/refresh_token").post(async (req, res) => {
+router.route("/refresh_token").get(async (req, res) => {
+  const refresh_token = req.cookies.refresh_token;
+  if(!req.cookies.refresh_token){
+    res.status(500).send({message: "Does not include refresh token"})
+  }
   try {
-    const refresh_token = req.body.refresh_token;
     const token = await axios({
       url: "https://accounts.spotify.com/api/token",
       method: "post",
@@ -107,7 +109,8 @@ router.route("/refresh_token").post(async (req, res) => {
       },
     });
 
-    res.cookie("access_token", token.data.access_token, { maxAge: 900000 });
+    res.cookie("access_token", token.data.access_token, { maxAge: 90000000 });
+    res.cookie("refresh_token", req.cookies.refresh_token, { maxAge: 90000000 });
     res.send({
       access_token: token.data.access_token,
     });
