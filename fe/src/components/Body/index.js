@@ -22,7 +22,7 @@ function Body() {
           <>
             <div className="body__icons">
             </div>
-            <Grid container alignItems="center" xs="hidden">
+            <Grid container alignItems="center">
               <Grid item xs={4} md={4}>
                 Title
               </Grid>

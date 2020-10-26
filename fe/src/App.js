@@ -8,7 +8,6 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import Search from "./views/Search";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { store } from "./store";
@@ -16,7 +15,6 @@ import "./App.css";
 
 function App() {
   const globalState = useContext(store);
-  const [cookies] = useCookies(["refresh_token"]);
   const [authorized, setAuthorized] = useState(null);
   const [user, setUser] = useState({});
   const [playlists, setPlaylists] = useState(() => []);
@@ -25,6 +23,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   async function getPlaylist(id) {
     try {
+
       dispatch({
         type: "SET_IS_LOADING",
         is_loading: true,
@@ -53,7 +52,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const valid = await axios.get("refresh_token");
+        const valid = await axios.get("/refresh_token");
         if(valid.status === 200){
           setAuthorized(true);
           const initialData = await axios.get("/spotify/me");
@@ -64,9 +63,23 @@ function App() {
             type: "SET_CURRENT_PLAYLIST",
             current_playlist: initialData?.data.current_playlist,
           });
+
+          dispatch({
+            type: "SET_AUTHORIZED",
+            authorized: true,
+          });
+
+        }else{
+          alert('ran');
         }
       } catch (err) {
-        setAuthorized(false);
+
+        dispatch({
+          type: "SET_AUTHORIZED",
+          authorized: false
+        });
+
+        // setAuthorized(false);
         setError(err.message)
       } finally {
         setLoading(false);
@@ -83,7 +96,7 @@ function App() {
             <CircularProgress />
           </Grid>
         )}
-        {authorized === false ? (
+        {globalState.state.authorized === false ? (
           <Login />
         ) : (
           <>

@@ -1,4 +1,4 @@
-const express = require("express"); // Express web server framework
+const express = require("express"); // Node  framework
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
@@ -7,7 +7,6 @@ const DEBUG = process.env.NODE_ENV === "development";
 const PORT = process.env.PORT || 5000
 
 require("dotenv").config();
-
 
 app.use(cors());
 app.use(express.json());

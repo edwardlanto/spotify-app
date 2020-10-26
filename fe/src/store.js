@@ -8,7 +8,8 @@ const initialState = {
   is_playing: false,
   index: null,
   search_data: [],
-  is_loading: false
+  is_loading: false,
+  authorized: false
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -47,6 +48,11 @@ const StateProvider = ({ children }) => {
           ...state,
           search_data: action.search_data,
         };
+        case "SET_AUTHORIZED":
+          return {
+            ...state,
+            authorized: action.authorized,
+          };
 
       case "SET_IS_LOADING":
         return {

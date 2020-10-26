@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import SidebarOption from "../SidebarOption.js";
 import { Link } from "react-router-dom";
@@ -6,10 +6,23 @@ import Searchbar from "../../components/Searchbar";
 import HomeIcon from "@material-ui/icons/Home";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Hidden from "@material-ui/core/Hidden";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import axios from 'axios';
+import { store } from "../../store";
 
 function Sidebar({ playlists, getPlaylist }) {
-  return (
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+  const logout = () => {
+    axios.get(`/logout`).then(() => {
+      dispatch({
+        type:"SET_AUTHORIZED",
+        authorized: false
+      });
+    });
+  }
 
+  return (
     // Desktop Sidebar
     <Hidden smDown={true}>
       <div className="sidebar sidebar__desktop">
@@ -36,6 +49,10 @@ function Sidebar({ playlists, getPlaylist }) {
               />
             );
           })}
+              <div className="sidebarOption">
+        {<ExitToAppIcon className="sidebarOption__icon" />}
+        {<button type="button" onClick={() => logout()}><h4>Logout</h4></button> }
+    </div>
       </div>
     </Hidden>
   );
