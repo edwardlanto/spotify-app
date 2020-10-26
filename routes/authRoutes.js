@@ -123,7 +123,6 @@ router.route("/logout").get((req, res) => {
   try{
     res.clearCookie("access_token").clearCookie("refresh_token").status(200).send("Logged Out");
   }catch(err){
-    console.log('err');
     res.status(500).send(err);
   }
 })

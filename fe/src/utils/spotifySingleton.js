@@ -4,6 +4,8 @@ class SpotifyInstance {
   constructor() {
     this.audio = new Audio();
     this.track = null;
+
+    // Whrn this class is called it check if the spotify instance exists, if it does it returns the same one.
     if (SpotifyInstance.instance == null) {
       SpotifyInstance.instance = this;
     }
@@ -13,7 +15,7 @@ class SpotifyInstance {
   play(track) {
     this.audio.src = track.preview_url;
     this.audio.play();
-    this.audio["is_playing"] = true;
+    this.audio.is_playing = true;
   }
 
   pause() {

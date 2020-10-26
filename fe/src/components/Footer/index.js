@@ -171,7 +171,7 @@ function Footer() {
             alt=""
           />
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={9} className="songRow__infoContainer">
           <div className="songRow__info">
             <h6>{globalState.state.currently_playing?.name}</h6>
             <div>
@@ -186,7 +186,7 @@ function Footer() {
           </Grid>
         </Grid>
       </Grid>
-      : <Grid item xs={12} sm={4} md={3}>Please play a song</Grid>}
+      : <Grid item xs={12} sm={4} md={3} className="footer__songLoader">Please play a song</Grid>}
         <Grid item xs={12} sm={4} md={6}>
           <Grid container direction="row" justify="center">
             <IconButton aria-label="previous" onClick={skipPrevious}>

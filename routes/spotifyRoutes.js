@@ -9,12 +9,12 @@ router.route("/*").get(async (req, res, next) => {
     ] = `Bearer ${req.cookies.access_token}`;
     next();
   } catch (err) {
-    res.redirect('/refresh_token')
-    res.status(500).send(err.message)
+    res.redirect("/refresh_token");
+    res.status(500).send(err.message);
   }
 });
 
-// All data in me
+// All data in start up
 router.route("/me").get(async (req, res) => {
   try {
     const me = await axios.get("https://api.spotify.com/v1/me");
@@ -46,7 +46,7 @@ router.route("/get_playlist").get(async (req, res) => {
   }
 });
 
-router.route("/search").get(async(req, res) => {
+router.route("/search").get(async (req, res) => {
   const term = req.query.q;
   try {
     const data = await axios.get("https://api.spotify.com/v1/search", {
@@ -54,17 +54,16 @@ router.route("/search").get(async(req, res) => {
         q: term,
         type: "playlist,track",
       },
-    })
+    });
 
     // Filter only ones with preview url
-    const tracks = data.data.tracks.items.filter(item => {
-      return item.preview_url !== null
+    const tracks = data.data.tracks.items.filter((item) => {
+      return item.preview_url !== null;
     });
 
     res.status(200).send({
-      tracks
+      tracks,
     });
-
   } catch (err) {
     res.status(500).send(err.message);
   }

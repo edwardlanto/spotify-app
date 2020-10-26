@@ -81,14 +81,14 @@ function SongRow({ track, index }) {
       <Grid item sm={6} md={4}>
         <Grid container spacing={1}>
           <Grid item>{playPauseButton(track)}</Grid>
-          <Grid>
+          <Grid item>
             <img
               className="songRow__album"
               src={track?.album.images[0].url}
               alt=""
             />
           </Grid>
-          <Grid>
+          <Grid item>
             <div className="songRow__info">
               <h1>{track?.name}</h1>
               <p>{track?.artists.map((artist) => artist.name).join(", ")} - </p>

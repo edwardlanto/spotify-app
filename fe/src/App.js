@@ -66,11 +66,9 @@ function App() {
 
           dispatch({
             type: "SET_AUTHORIZED",
-            authorized: true,
+            authorized: true
           });
 
-        }else{
-          alert('ran');
         }
       } catch (err) {
 
@@ -91,7 +89,7 @@ function App() {
   return (
     <Router>
       <>
-        {loading && (
+        {loading === true && (
           <Grid container justify="center" className="app__loader">
             <CircularProgress />
           </Grid>

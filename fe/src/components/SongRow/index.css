@@ -37,7 +37,8 @@
 }
 
 @media (max-width:720px){
-  .songRow__info{
+  .songRow__infoContainer{
+    max-width: 70%;
     margin-left: 20px;
   }
 }

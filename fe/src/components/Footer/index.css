@@ -9,6 +9,11 @@
     text-align: center;
 }
 
+.footer__songLoader{
+    display:flex;
+    align-items:center;
+}
+
 .footer__center{
     flex:0.4;
 }
@@ -58,4 +63,10 @@
 .footer__green:hover{
     transform: transform 0.2s ease-in-out;
     transform: scale(1.2) !important;
+}
+
+@media (max-width:768px){
+    .footer__songLoader {
+        justify-content:center
+    };
 }

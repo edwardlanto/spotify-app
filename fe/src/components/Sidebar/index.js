@@ -32,10 +32,6 @@ function Sidebar({ playlists, getPlaylist }) {
             <h4>Home</h4>
           </Link>
           <Searchbar />
-          <button type="button">
-            <LibraryMusicIcon />
-            <h4>Your Library</h4>
-          </button>
         </div>
         <strong className="sidebar__title">Playlists</strong>
         <hr />
