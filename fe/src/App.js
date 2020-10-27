@@ -107,7 +107,6 @@ function App() {
               <Switch>
                 <Route path="/" exact component={Body} />
                 <Route path="/search" exact component={Search} />
-                <Route path='*' exact={true} component={PageNotFound} />
               </Switch>
               <Footer />
               {error && error}

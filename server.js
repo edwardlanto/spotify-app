@@ -32,8 +32,11 @@ const spotifyRouter = require("./routes/spotifyRoutes");
 
 app.use("/", [authRouter]);
 app.use("/spotify", spotifyRouter);
+app.use((req, res, next) => {
+  console.log("CANT FIND")
+  res.status(404).send("Sorry can't find that!")
+})
 
-console.log("Listening on 8888");
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

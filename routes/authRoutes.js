@@ -11,6 +11,8 @@ const axios = require("axios");
 const generateRandomString = require("../utils/index");
 let state = generateRandomString(64);
 let stateKey = "spotify_auth_state";
+
+// Access to resources
 const scopes = [
   "user-read-currently-playing",
   "user-read-recently-played",
