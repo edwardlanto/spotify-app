@@ -91,6 +91,7 @@ router.route("/callback").get(async (req, res) => {
 router.route("/refresh_token").get(async (req, res) => {
   const refresh_token = req.cookies.refresh_token;
   if(!req.cookies.refresh_token){
+    res.send('what???', 404);
     res.status(500).send({message: "Does not include refresh token"});
   }
   try {
@@ -127,6 +128,6 @@ router.route("/logout").get((req, res) => {
   }catch(err){
     res.status(500).send(err);
   }
-})
+});
 
 module.exports = router;
