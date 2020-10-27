@@ -14,7 +14,7 @@ function Sidebar({ playlists, getPlaylist }) {
   const globalState = useContext(store);
   const { dispatch } = globalState;
   const logout = () => {
-    axios.get(`/logout`).then(() => {
+    axios.get(`/api/logout`).then(() => {
       dispatch({
         type:"SET_AUTHORIZED",
         authorized: false

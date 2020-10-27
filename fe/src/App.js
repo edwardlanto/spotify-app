@@ -29,7 +29,7 @@ function App() {
         is_loading: true,
       });
 
-      const data = await axios.get("/spotify/get_playlist", {
+      const data = await axios.get("/api/spotify/get_playlist", {
         params: {
           id,
         },
@@ -52,9 +52,9 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const valid = await axios.get("/refresh_token");
+        const valid = await axios.get("/api/refresh_token");
         if(valid.status === 200){
-          const initialData = await axios.get("/spotify/me");
+          const initialData = await axios.get("/api/spotify/me");
           setUser(initialData?.data?.user);
           setPlaylists(initialData?.data?.playlists);
   

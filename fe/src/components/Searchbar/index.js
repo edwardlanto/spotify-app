@@ -15,7 +15,7 @@ function Searchbar() {
   async function searchSpotify(e) {
     try {
       e.preventDefault();
-      const data = await axios.get(`/spotify/search?q=${input}`);
+      const data = await axios.get(`/api/spotify/search?q=${input}`);
 
       dispatch({
         type: "SET_SEARCH_DATA",

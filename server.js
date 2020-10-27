@@ -30,10 +30,11 @@ const authRouter = require("./routes/authRoutes");
 // All Spotify Routes
 const spotifyRouter = require("./routes/spotifyRoutes");
 
-app.use("/", [authRouter]);
-app.use("/spotify", spotifyRouter);
+app.use("/api/", [authRouter]);
+app.use("/api/spotify", spotifyRouter);
 app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'fe/build', 'index.html'));
+  console.log(__dirname)
+	response.sendFile(__dirname, 'fe/build', 'index.html');
 });
 
 
