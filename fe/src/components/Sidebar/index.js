@@ -4,7 +4,6 @@ import SidebarOption from "../SidebarOption.js";
 import { Link } from "react-router-dom";
 import Searchbar from "../../components/Searchbar";
 import HomeIcon from "@material-ui/icons/Home";
-import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Hidden from "@material-ui/core/Hidden";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import axios from 'axios';

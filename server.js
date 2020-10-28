@@ -34,6 +34,8 @@ console.log(path.join(__dirname, '/fe', '/build/', 'index.html'))
 
 app.use("/api/", [authRouter]);
 app.use("/api/spotify", spotifyRouter);
+
+// Fallback route
 app.get('/*', (request, response) => {
 	response.sendFile(path.join(__dirname, '/fe', '/build/', 'index.html'));
 });
