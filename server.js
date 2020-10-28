@@ -32,7 +32,7 @@ const spotifyRouter = require("./routes/spotifyRoutes");
 
 app.use("/api/", [authRouter]);
 app.use("/api/spotify", spotifyRouter);
-app.get('*', (request, response) => {
+app.get('/*', (request, response) => {
   console.log(__dirname)
 	response.sendFile(__dirname, 'fe/build', 'index.html');
 });
