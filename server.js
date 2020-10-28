@@ -4,7 +4,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const DEBUG = process.env.NODE_ENV === "development";
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
+const path = require('path');
 
 require("dotenv").config();
 
@@ -29,12 +30,12 @@ const authRouter = require("./routes/authRoutes");
 
 // All Spotify Routes
 const spotifyRouter = require("./routes/spotifyRoutes");
+console.log(path.join(__dirname, '/fe', '/build/', 'index.html'))
 
 app.use("/api/", [authRouter]);
 app.use("/api/spotify", spotifyRouter);
 app.get('/*', (request, response) => {
-  console.log(__dirname)
-	response.sendFile(__dirname, 'fe/build', 'index.html');
+	response.sendFile(path.join(__dirname, '/fe', '/build/', 'index.html'));
 });
 
 
