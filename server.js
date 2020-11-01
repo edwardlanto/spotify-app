@@ -32,8 +32,8 @@ const authRouter = require("./routes/authRoutes");
 const spotifyRouter = require("./routes/spotifyRoutes");
 console.log(path.join(__dirname, '/fe', '/build/', 'index.html'))
 
-app.use("/api/", [authRouter]);
-app.use("/api/spotify", spotifyRouter);
+app.use("/", [authRouter]);
+app.use("/spotify", spotifyRouter);
 
 // Fallback route
 app.get('/*', (request, response) => {
