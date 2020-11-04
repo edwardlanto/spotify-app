@@ -13,7 +13,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 function SongRow({ track, index }) {
   const globalState = useContext(store);
   const { dispatch } = globalState;
-  const [infoState, setInfoState] = useState(() => false);
+  const [infoState, setInfoState] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const play = (trackParams) => {
     spotify.play(trackParams);

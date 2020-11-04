@@ -13,7 +13,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import Hidden from "@material-ui/core/Hidden";
 
 function Header({ user, playlists, getPlaylist }) {
-  const [open, setOpen] = useState(() => false);
+  const [open, setOpen] = useState(false);
   const list = () => (
     <div className="sidebar__mobileMenu">
       <div className="sidebar sidebar__desktop">

@@ -8,9 +8,9 @@ import { useHistory } from "react-router-dom";
 function Searchbar() {
   const globalStore = useContext(store);
   const { dispatch } = globalStore;
-  const [input, setInput] = useState(() => "");
+  const [input, setInput] = useState("");
   const history = useHistory();
-  const [error, setError] = useState(() => []);
+  const [error, setError] = useState([]);
 
   async function searchSpotify(e) {
     try {
