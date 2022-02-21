@@ -20,7 +20,7 @@ class SpotifyInstance {
 
   pause() {
     this.audio.pause();
-    this.audio["is_playing"] = false;
+    this.audio.is_playing = false;
   }
 
   setVolume(vol) {

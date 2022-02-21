@@ -7,17 +7,19 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl
   const url = req.nextUrl;
 
+  // If user is logged in, redirect to home
   if (token && pathname.includes('/login')) {
-    return NextResponse.redirect(new URL('/', url.origin));
+    return NextResponse.redirect('/')
   }
 
+  // Allow requests if the following is true...
+  // 1) A token exists
+  // 2) Its a request for next-auth session & provider fetching
   if (pathname.includes('/api/auth') || token) {
     return NextResponse.next()
   }
 
   if(!token && pathname !== '/login'){
     return NextResponse.redirect(new URL('/login', url.origin));
+  }
 }
-
-}
-
