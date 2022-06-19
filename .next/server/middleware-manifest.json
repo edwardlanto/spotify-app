@@ -17,12 +17,13 @@
         "NEXTAUTH_SECRET"
       ],
       "files": [
-        "server/middleware-runtime.js",
+        "server/edge-runtime-webpack.js",
         "server/pages/_middleware.js"
       ],
       "name": "pages/_middleware",
       "page": "/",
-      "regexp": "^/(?!_next).*$"
+      "regexp": "^/(?!_next).*$",
+      "wasm": []
     }
   },
   "version": 1
