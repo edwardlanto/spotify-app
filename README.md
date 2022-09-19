@@ -1,7 +1,7 @@
 # Spotify Clone
 
 Spotfify Clone using Javascript (NextJS, TailwindCSS, Recoil, Spotify Web API). 
-
+[Demo](https://spotify.edwardl.ca/)
 
 ## Core packages
 
