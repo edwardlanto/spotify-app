@@ -1,8 +1,0 @@
-.searchPage{
-    flex: 0.8 1;
-    height: 100vh;
-    background-color: rgb(91, 87, 115);
-    background: linear-gradient(#360033, #0b8793);
-    overflow-y: scroll;
-    padding: 20px;
-}
